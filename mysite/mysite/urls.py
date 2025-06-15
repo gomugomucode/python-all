@@ -17,7 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+admin.site.site_header = "Anupam Ice Cream Admin Panel"
+admin.site.site_title = "Anupam Ice Cream Admin"
+admin.site.index_title = "Welcome to the Anupam Ice Cream"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('home.urls'))
+    path('',include('home.urls'))ss
 ]
