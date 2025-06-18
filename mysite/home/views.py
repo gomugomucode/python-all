@@ -5,10 +5,9 @@ def index(request):
     # return HttpResponse("This is the  home page bhaaiya ")
 
 def about(request):
-    return HttpResponse("This is the  about page bhaaiya ")
+    return render(request , 'about.html')
 
 def service(request):
-    return HttpResponse("This is the  service page bhaaiya ")
-
+    return render(request , 'service.html')
 def contact(request):
-    return HttpResponse("This is the  contact page bhaaiya ")
+    return render(request , 'contact.html')

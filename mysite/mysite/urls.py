@@ -23,5 +23,5 @@ admin.site.index_title = "Welcome to the Anupam Ice Cream"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('home.urls'))ss
+    path('',include('home.urls')),
 ]
