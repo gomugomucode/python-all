@@ -1,0 +1,17 @@
+attrs==24.1.0
+certifi==2025.4.26
+cffi==1.17.1
+charset-normalizer==3.4.2
+cryptography==45.0.3
+filelock==3.18.0
+idna==3.10
+lensfun==0.3.4
+packaging==25.0
+psutil==7.0.0
+pulsemixer==1.5.1
+pycparser==2.22
+PyGObject==3.52.3
+requests==2.32.4
+urllib3==2.4.0
+wheel==0.45.1
+yt-dlp==2025.6.9
