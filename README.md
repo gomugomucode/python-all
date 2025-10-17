@@ -93,11 +93,10 @@ _Sample commands:_
 ```
 Jarvis/
 │
-├── jarvis.py          # Main logic
-├── voice/             # TTS & STT utilities
-├── ai/                # GPT integrations
-├── utils/             # Web, news, music functions
-├── config/            # API keys and environment
+├── main.py          # Main logic
+├── ai_module.py/             # ai api key and its related code,response  , GPT integrations
+├── musicLibrary.py/             #  music functions
+├── news.py/            #new API keys and environment
 ├── requirements.txt   # All dependencies
 └── README.md
 ```
