@@ -30,10 +30,12 @@
 # print(f"Student 1: {s1.name}, Age: {s1.age}")
 # print(f"Student 2: {s2.name}, Age: {s2.age}")
 
+
+
 import random
 
 class Bank:
-    def __init__(self, name, balance , account_number , bank_name, branch, ifsc_code ,   ):
+    def __init__(self, name, balance , account_number , bank_name, branch, ifsc_code):
         self.name = name
         self.balance = balance
         self.account_number = account_number
@@ -54,11 +56,18 @@ class Bank:
         print(f"Deposited {amount}. New Balance: {self.balance}")
 
     def withdraw(self, amount):
-        if amount > self.balance:
-            print("Insufficient funds.")
-        else:
-            self.balance -= amount
-            print(f"Withdrew {amount}. New Balance: {self.balance}")
+        
+    if amount <= 100:
+        print("Minimum withdrawal amount is 100.")
+        return
+    if amount > self.balance:
+        print("Insufficient funds.")
+        return
+    self.balance -= amount
+    print(f"Withdrew {amount}. New Balance: {self.balance}")
+    
+    def __str__(self):
+        return f"The bank account of {self.name} with account number {self.account_number} has a balance of {self.balance} in {self.bank_name} at {self.branch} branch with IFSC code {self.ifsc_code}."
 
 n = int(input("Enter the number of accounts you want to create: "))
 while n > 0:
@@ -72,8 +81,8 @@ while n > 0:
     # Creating an object of the Bank class
     account = Bank(name, balance, account_number, bank_name, branch, ifsc_code)
     
-    # Displaying account information
-    account.display_info()
+    # # Displaying account information
+    # account.display_info()
      
     # Example of deposit and withdrawal
     deposit_amount = float(input("Enter amount to deposit: "))
@@ -84,6 +93,8 @@ while n > 0:
         print("Insufficient funds for withdrawal or withdrawal amount is too low.")
     else:
         account.withdraw(withdraw_amount)
+
+    print(account)  # Using the __str__ method to display account information
 
     n -= 1
 
