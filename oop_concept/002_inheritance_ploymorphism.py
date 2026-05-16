@@ -1,11 +1,27 @@
 class Bank:
     def __init__(self, name, balance, account_number, bank_name, branch, ifsc_code):
         self.name = name
-        self.balance = balance
         self.account_number = account_number
         self.bank_name = bank_name
         self.branch = branch
         self.ifsc_code = ifsc_code
+        self.balance = balance       # calls the setter below
+
+    @property    # ?getter is used to get the value  
+    def balance(self):
+        return self._balance
+
+    @balance.setter   
+    def balance(self, value):
+        if value < 0:
+            raise ValueError(f"Balance cannot be negative. Got: {value}")
+        self._balance = value
+
+    @property
+    def account_summary(self):       # read-only property, no setter  , only getting values fromt the class
+        return (f"[{self.bank_name}] {self.name} | "
+                f"Acc: {self.account_number} | "
+                f"Balance: {self._balance}")
 
     def deposit(self, amount):
         self.balance += amount
@@ -22,8 +38,28 @@ class Bank:
         print(f"Withdrew {amount}. New balance: {self.balance}")
 
     def __str__(self):
-        return f"The bank account of {self.name} with account number {self.account_number} has a balance of {self.balance} in {self.bank_name} at {self.branch} branch with IFSC code {self.ifsc_code}."
+        return (f"The bank account of {self.name} with account number "
+                f"{self.account_number} has a balance of {self.balance} "
+                f"in {self.bank_name} at {self.branch} branch.")
 
+    def __repr__(self):
+        return (f"Bank(name={self.name}, balance={self.balance}, "
+                f"account_number={self.account_number})")
+
+    def __eq__(self, other):
+        if isinstance(other, Bank):
+            return self.account_number == other.account_number
+        return False
+
+    def __lt__(self, other):
+        if isinstance(other, Bank):
+            return self.balance < other.balance
+        return NotImplemented
+
+    def __add__(self, other):
+        if isinstance(other, Bank):
+            return self.balance + other.balance
+        return NotImplemented
 
 class SavingAccount(Bank):
     def __init__(self, name, balance, account_number, bank_name, branch, ifsc_code, interest_rate):
@@ -45,6 +81,15 @@ class SavingAccount(Bank):
 
     def __str__(self):
         return f"The Saving Account of {self.name} (Acc: {self.account_number}) has a balance of {self.balance} in {self.bank_name}. Interest Rate: {self.interest_rate}%."
+
+    def accopunt_summary(self):
+        print(f"Account Summary for {self.name}:")
+        print(f"Account Number: {self.account_number}")
+        print(f"Bank Name: {self.bank_name}")
+        print(f"Branch: {self.branch}")
+        print(f"IFSC Code: {self.ifsc_code}")
+        print(f"Balance: {self.balance}")
+        print(f"Interest Rate: {self.interest_rate}%")
 
 
 class CurrentAccount(Bank):
@@ -88,23 +133,27 @@ class FixedDepositAccount(Bank):
     def __str__(self):
         return f"The Fixed Deposit Account of {self.name} (Acc: {self.account_number}) has a deposit of {self.balance} in {self.bank_name}. Maturity: {self.maturity_period} yrs, Rate: {self.interest_rate}%."
 
+acc1 = SavingAccount("Anupam", 5000, "1234567890", "ABC Bank", "Main", "ABC0001234", 5)
+acc2 = CurrentAccount("John", 2000, "0987654321", "XYZ Bank", "City", "XYZ0005678", 1000)
+acc3 = FixedDepositAccount("Alice", 10000, "1122334455", "PQR Bank", "Town", "PQR0009876", 3, 7)
 
-# Test Instances
-s1 = SavingAccount("Anupam", 5000, "1234567890", "ABC Bank", "Main", "ABC0001234", 5)
-print(s1)
-s1.withdraw(4500) # Should fail (balance < 1000)
-s1.withdraw(3000) # Should succeed
+# __eq__
+print(acc1 == acc2)          # False — different account numbers
 
-print("\n" + "-"*30 + "\n")
+# __lt__ + sorted
+accounts = [acc1, acc2, acc3]
+sorted_accounts = sorted(accounts)
+for a in sorted_accounts:
+    print(f"{a.name}: {a.balance}")   # sorted lowest → highest balance
 
-s2 = CurrentAccount("John", 2000, "0987654321", "XYZ Bank", "City", "XYZ0005678", 1000)
-print(s2)
-s2.withdraw(2500) # Should succeed (uses overdraft)
-s2.check_overdraft()
+# __add__
+print(acc1 + acc2)           # 7000 (5000 + 2000)
 
-print("\n" + "-"*30 + "\n")
+# @property setter validation
+try:
+    acc1.balance = -500      # should raise ValueError
+except ValueError as e:
+    print(e)
 
-s3 = FixedDepositAccount("Alice", 10000, "1122334455", "PQR Bank", "Town", "PQR0009876", 3, 7)
-print(s3)
-s3.withdraw(5000) # Should print "Withdrawals not allowed"
-s3.calculate_maturity_amount()
+# account_summary property
+print(acc1.account_summary)  # read-only, no ()  needed... wait, it IS a property
