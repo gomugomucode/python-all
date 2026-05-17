@@ -16,13 +16,11 @@ class Bank:
         if value < 0:
             raise ValueError(f"Balance cannot be negative. Got: {value}")
         self._balance = value
-
     @property
     def account_summary(self):       # read-only property, no setter  , only getting values fromt the class
         return (f"[{self.bank_name}] {self.name} | "
                 f"Acc: {self.account_number} | "
                 f"Balance: {self._balance}")
-
     def deposit(self, amount):
         self.balance += amount
         print(f"Deposited {amount}. New Balance: {self.balance}")
