@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - Anupam Ice Cream{% endblock %}
+
+{% block extra_css %}
+<style>
+.hero-section{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:80px 0}
+.story-img{height:300px;object-fit:cover;border-radius:15px}
+.team-card{transition:transform 0.3s;border:none;box-shadow:0 4px 6px rgba(0,0,0,0.1)}
+.team-card:hover{transform:translateY(-5px);box-shadow:0 8px 15px rgba(0,0,0,0.2)}
+.team-img{width:150px;height:150px;object-fit:cover;border-radius:50%;margin:0 auto}
+.fade-in{opacity:0;transform:translateY(30px);transition:all 0.8s}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.timeline{position:relative;padding:20px 0}
+.timeline-item{background:white;padding:20px;margin:20px 0;border-left:4px solid #667eea;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,0.1)}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-4">About Anupam Ice Cream</h1>
+        <p class="lead">Serving happiness since 1985</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row align-items-center mb-5 fade-in">
+        <div class="col-md-6">
+            <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600&h=300&fit=crop" class="img-fluid story-img" alt="Ice Cream Shop">
+        </div>
+        <div class="col-md-6">
+            <h2>Our Story</h2>
+            <p class="lead">What started as a small family dream in 1985 has grown into the most beloved ice cream destination in town.</p>
+            <p>Anupam Ice Cream was founded by Mr. Anupam Sharma with a simple vision: to create the finest ice cream using traditional recipes and premium ingredients. Over the decades, we've remained committed to quality, freshness, and the joy that comes with every scoop.</p>
+            <p>Today, we're proud to serve three generations of families who have made us part of their sweetest memories.</p>
+        </div>
+    </div>
+    
+    <div class="text-center mb-5 fade-in">
+        <h2>Our Journey</h2>
+        <p class="text-muted">Key milestones in our ice cream legacy</p>
+    </div>
+    
+    <div class="timeline fade-in">
+        <div class="timeline-item">
+            <h5>1985 - The Beginning</h5>
+            <p>Started our first ice cream parlor with just 5 flavors and a dream to spread happiness.</p>
+        </div>
+        <div class="timeline-item">
+            <h5>1995 - Expansion</h5>
+            <p>Opened our second location and introduced 15 new exotic flavors to our menu.</p>
+        </div>
+        <div class="timeline-item">
+            <h5>2005 - Innovation</h5>
+            <p>Launched our signature sundae collection and custom ice cream cakes.</p>
+        </div>
+        <div class="timeline-item">
+            <h5>2015 - Modern Era</h5>
+            <p>Introduced premium ingredients and seasonal specials while maintaining our traditional recipes.</p>
+        </div>
+        <div class="timeline-item">
+            <h5>2025 - Today</h5>
+            <p>Continuing to serve the community with 25+ flavors and unwavering commitment to quality.</p>
+        </div>
+    </div>
+    
+    <div class="text-center my-5 fade-in">
+        <h2>Meet Our Team</h2>
+        <p class="text-muted">The passionate people behind your favorite ice cream</p>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 mb-4 fade-in">
+            <div class="card team-card text-center p-4">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" class="team-img mb-3" alt="Anupam Sharma">
+                <h5>Anupam Sharma</h5>
+                <p class="text-primary">Founder & Master Chef</p>
+                <p class="small">The visionary behind our traditional recipes and quality standards.</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4 fade-in">
+            <div class="card team-card text-center p-4">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face" class="team-img mb-3" alt="Priya Sharma">
+                <h5>Priya Sharma</h5>
+                <p class="text-primary">Operations Manager</p>
+                <p class="small">Ensures every scoop meets our high standards of freshness and taste.</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4 fade-in">
+            <div class="card team-card text-center p-4">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" class="team-img mb-3" alt="Rajesh Kumar">
+                <h5>Rajesh Kumar</h5>
+                <p class="text-primary">Head Ice Cream Maker</p>
+                <p class="small">Master craftsman with 15 years of experience in creating perfect flavors.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-center mt-5 fade-in">
+        <div class="card bg-light p-5">
+            <h3>Our Values</h3>
+            <div class="row mt-4">
+                <div class="col-md-3">
+                    <div style="font-size:3rem">🥛</div>
+                    <h5>Quality First</h5>
+                    <p>Premium ingredients, no compromises</p>
+                </div>
+                <div class="col-md-3">
+                    <div style="font-size:3rem">👨‍👩‍👧‍👦</div>
+                    <h5>Family Tradition</h5>
+                    <p>Recipes passed down through generations</p>
+                </div>
+                <div class="col-md-3">
+                    <div style="font-size:3rem">🌱</div>
+                    <h5>Fresh Daily</h5>
+                    <p>Made fresh every morning</p>
+                </div>
+                <div class="col-md-3">
+                    <div style="font-size:3rem">❤️</div>
+                    <h5>Community Love</h5>
+                    <p>Serving happiness to our neighbors</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('scroll',()=>document.querySelectorAll('.fade-in').forEach(e=>e.getBoundingClientRect().top<window.innerHeight-100&&e.classList.add('visible')));
+document.addEventListener('load',()=>document.querySelectorAll('.fade-in').forEach(e=>e.classList.add('visible')));
+</script>
+{% endblock %}

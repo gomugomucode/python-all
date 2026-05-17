@@ -1,0 +1,553 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Services - Anupam Ice Cream{% endblock %}
+
+{% block extra_css %}
+   <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #ff6b9d, #4ecdc4);
+            color: white;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .services {
+            padding: 60px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .service-card p {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            background: #ffe66d;
+            color: #495057;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff6b9d, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+        }
+
+        .features {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4ecdc4, #0d6efd);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Order Form Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4ecdc4;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .quantity-btn:hover {
+            background: #e9ecef;
+        }
+
+        .quantity-input {
+            width: 80px;
+            text-align: center;
+        }
+
+        .total-amount {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .total-amount h3 {
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .services {
+                padding: 40px 0;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+ <section class="hero">
+        <div class="container">
+            <h1>Our Delicious Services</h1>
+            <p>Premium ice cream flavors crafted with love and finest ingredients</p>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🍦</div>
+                    <h3>Vanilla Ice Cream</h3>
+                    <p>Classic creamy vanilla made with real vanilla beans and fresh cream</p>
+                    <div class="price">From ₹199</div>
+                    <button class="btn" onclick="orderService('vanilla')">Order Now</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🍫</div>
+                    <h3>Chocolate Ice Cream</h3>
+                    <p>Rich, decadent chocolate ice cream with premium cocoa and chocolate chips</p>
+                    <div class="price">From ₹229</div>
+                    <button class="btn" onclick="orderService('chocolate')">Order Now</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Custom Flavors</h3>
+                    <p>Create your own unique flavor combinations with fruits, nuts, and more</p>
+                    <div class="price">From ₹299</div>
+                    <button class="btn" onclick="orderService('custom')">Customize</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎉</div>
+                    <h3>Event Catering</h3>
+                    <p>Ice cream catering for parties, weddings, and corporate events</p>
+                    <div class="price">Starting ₹7,999</div>
+                    <button class="btn" onclick="orderService('catering')">Book Event</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🚚</div>
+                    <h3>Home Delivery</h3>
+                    <p>Fresh ice cream delivered right to your doorstep in various pack sizes</p>
+                    <div class="price">Free delivery ₹1,299+</div>
+                    <button class="btn" onclick="orderService('delivery')">Order Online</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🌟</div>
+                    <h3>Seasonal Specials</h3>
+                    <p>Limited-time flavors featuring seasonal ingredients and monthly specials</p>
+                    <div class="price">From ₹249</div>
+                    <button class="btn" onclick="orderService('seasonal')">Explore</button>
+                </div>
+            </div>
+
+            <div class="features">
+                <h2>Why Choose Anupam Ice Cream?</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">✨</div>
+                        <span>Premium Quality Ingredients</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🥛</div>
+                        <span>Fresh Daily Production</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">❄️</div>
+                        <span>Perfect Temperature Control</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👨‍🍳</div>
+                        <span>Expert Craftsmanship</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🌱</div>
+                        <span>Natural & Organic Options</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">💝</div>
+                        <span>Custom Gift Packaging</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeOrderForm()">&times;</span>
+            <h2 id="modalTitle">Order Ice Cream</h2>
+            
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label for="iceCreamType">Ice Cream Type:</label>
+                    <select id="iceCreamType" name="iceCreamType" required onchange="updatePrice()">
+                        <option value="">Select Ice Cream</option>
+                        <option value="vanilla" data-price="199">Vanilla Ice Cream - ₹199</option>
+                        <option value="chocolate" data-price="229">Chocolate Ice Cream - ₹229</option>
+                        <option value="custom" data-price="299">Custom Flavors - ₹299</option>
+                        <option value="seasonal" data-price="249">Seasonal Specials - ₹249</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="customerName">Full Name:</label>
+                    <input type="text" id="customerName" name="customerName" required placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" required placeholder="Enter your phone number">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Delivery Address:</label>
+                    <textarea id="address" name="address" required placeholder="Enter your full delivery address" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <div class="quantity-controls">
+                        <button type="button" class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" max="50" class="quantity-input" onchange="updatePrice()" required>
+                        <button type="button" class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                    </div>
+                </div>
+
+                <div class="total-amount">
+                    <h3>Total Amount: ₹<span id="totalAmount">0</span></h3>
+                </div>
+
+                <button type="submit" class="btn-submit">Place Order</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+      <script>
+        // Ice cream data
+        const iceCreamData = {
+            vanilla: { name: 'Vanilla Ice Cream', price: 199 },
+            chocolate: { name: 'Chocolate Ice Cream', price: 229 },
+            custom: { name: 'Custom Flavors', price: 299 },
+            catering: { name: 'Event Catering', price: 7999 },
+            delivery: { name: 'Home Delivery', price: 199 },
+            seasonal: { name: 'Seasonal Specials', price: 249 }
+        };
+
+        function orderService(service) {
+            if (service === 'catering') {
+                alert('For event catering, please call us at +91-XXXXXXXXXX for custom pricing and planning.');
+                return;
+            }
+            
+            if (service === 'delivery') {
+                service = 'vanilla'; // Default to vanilla for delivery orders
+            }
+
+            // Show modal
+            document.getElementById('orderModal').classList.add('show');
+            
+            // Set the ice cream type in the form
+            const selectElement = document.getElementById('iceCreamType');
+            if (iceCreamData[service]) {
+                selectElement.value = service;
+                document.getElementById('modalTitle').textContent = `Order ${iceCreamData[service].name}`;
+            }
+            
+            // Update price
+            updatePrice();
+        }
+
+        function closeOrderForm() {
+            document.getElementById('orderModal').classList.remove('show');
+            document.getElementById('orderForm').reset();
+            document.getElementById('quantity').value = 1;
+            updatePrice();
+        }
+
+        function changeQuantity(change) {
+            const quantityInput = document.getElementById('quantity');
+            let currentQuantity = parseInt(quantityInput.value);
+            let newQuantity = currentQuantity + change;
+            
+            if (newQuantity >= 1 && newQuantity <= 50) {
+                quantityInput.value = newQuantity;
+                updatePrice();
+            }
+        }
+
+        function updatePrice() {
+            const iceCreamSelect = document.getElementById('iceCreamType');
+            const quantityInput = document.getElementById('quantity');
+            const totalAmountSpan = document.getElementById('totalAmount');
+            
+            const selectedOption = iceCreamSelect.options[iceCreamSelect.selectedIndex];
+            const price = selectedOption.getAttribute('data-price');
+            const quantity = parseInt(quantityInput.value) || 1;
+            
+            if (price) {
+                const totalAmount = price * quantity;
+                totalAmountSpan.textContent = totalAmount;
+            } else {
+                totalAmountSpan.textContent = '0';
+            }
+        }
+
+        function submitOrder(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const orderData = {
+                iceCreamType: formData.get('iceCreamType'),
+                customerName: formData.get('customerName'),
+                phoneNumber: formData.get('phoneNumber'),
+                address: formData.get('address'),
+                quantity: formData.get('quantity'),
+                totalAmount: document.getElementById('totalAmount').textContent
+            };
+            
+            // Here you would normally send the data to your server
+            console.log('Order submitted:', orderData);
+            
+            // Show success message
+            alert(`Order placed successfully!\n\nOrder Details:\nIce Cream: ${iceCreamData[orderData.iceCreamType].name}\nQuantity: ${orderData.quantity}\nTotal: ₹${orderData.totalAmount}\n\nWe'll contact you shortly at ${orderData.phoneNumber} for confirmation.`);
+            
+            // Close the modal
+            closeOrderForm();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderModal');
+            if (event.target === modal) {
+                closeOrderForm();
+            }
+        }
+    </script>
+{% endblock %}
