@@ -29,3 +29,6 @@ array = np.array([[['a','b','c'],['d','e','f'] ,['g','h','i']],
                   [['s','t','u'],['v','w','x'] , ['y','z' ,' ']]])
 
 print(array.ndim)  # Output: 3
+
+
+print(array.shape)  # Output: (3, 3, 3)
