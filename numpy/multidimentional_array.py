@@ -32,3 +32,30 @@ print(array.ndim)  # Output: 3
 
 
 print(array.shape)  # Output: (3, 3, 3)
+
+
+
+# chain indexing
+
+
+array = np.array([[['a','b','c'],['d','e','f'] ,['g','h','i']],
+                  [['j','k','l'],['m','n','o'],['p','q','r']],
+                  [['s','t','u'],['v','w','x'] , ['y','z' ,' ']]])
+
+#  to access the first element of the first layer, first column, and first row , by chain indexing we can do it like this
+
+print(array[0, 0, 0])  # Output: a
+
+print(array[1, 1, 1])  # Output: n
+
+print(array[2, 2, 2])  # Output:  
+
+word = array[0,0,0] + array[2,0,0] + array[2,0,0]
+print(word)  # Output: ass
+
+word = array[1,0,2] + array[2,0,2] + array[0,1,2] + array[0,1,2]  + array[2,2,0]
+print(word)  # Output: luffy
+
+word = array[0,2,0] +array[1,1,2] + array[1,1,0] + array[2,0,2] +  array[0,2,0] +array[1,1,2] + array[1,1,0] + array[2,0,2]  + array[0,0,2] + array[1,1,2] + array[0,1,0]+ array[0,1,1]
+
+print(word)  # Output: gomugomucode
