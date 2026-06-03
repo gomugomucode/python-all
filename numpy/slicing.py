@@ -1,7 +1,10 @@
 
 import numpy as np
 
-array = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])
+array = np.array([[1,2,3,4],
+                  [5,6,7,8],
+                  [9,10,11,12],
+                  [13,14,15,16]])
 
 # Slicing the array  
 # Slicing syntax: array[start:stop:step]
@@ -30,5 +33,25 @@ array = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])
 
 # print(array[0:3 :2]) # prints the 1st and 3rd rows of the array
 
-print(array[3:0:-1]) # prints the 3rd and 2nd rows of the array
+# print(array[3:0:-1]) # prints the 3rd and 2nd rows of the array
+
+
+
+
+# column slicing
+# print(array[:, 0:3]) # prints the 1st, 2nd and 3rd columns of the array
+
+# print(array[ : , : -1]) # prints all the column except last one 
+
+# print(array[ : , 0:3 :2]) # prints the 1st and 3rd columns of the array
+
+# print(array[ : , 3:0:-1]) # prints the 4th and 3rd columns of the array
+
+# print(array[ : , -1]) # prints the last column of the array
+
+# print(array[ : , -2]) # prints the second last column of the array
+
+print(array[ 1:3 , 2]) # prints the 3rd column of the 2nd and 3rd rows of the array
+
+
 
