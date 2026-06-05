@@ -1,3 +1,4 @@
+# In this code, we are creating multidimensional arrays using NumPy and exploring their dimensions and shapes. We also demonstrate how to access elements in a multidimensional array using chain indexing.
 
 import numpy as np
 

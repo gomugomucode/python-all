@@ -1,3 +1,6 @@
+# In this code, we are exploring slicing in NumPy arrays. Slicing allows us to extract specific parts of an array based on specified indices and steps. We will demonstrate how to slice rows, columns, and both together in a 2D array.
+# Slicing syntax: array[start:stop:step]
+# In slicing, the 'start' index is inclusive, while the 'stop' index is exclusive. The 'step' parameter determines the interval between indices in the slice. If 'step' is negative, it will slice in reverse order.
 
 import numpy as np
 
@@ -56,6 +59,8 @@ array = np.array([[1,2,3,4],
 
 
 # row and colum slicing together
+
+# in row and coumn slicing . it first select the rows and then select the columns from the selected rows
 
 # print(array[0 , 0]) # prints the element at 1st row and 1st column of the array
 
