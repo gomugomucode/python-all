@@ -14,3 +14,12 @@ ages  =  np.array([[22, 25, 18, 30, 28, 35, 40 , 27, 24 ,65,999],[32,98 ,65 , 45
 
 # so to preserve the array dimentionwe use the where function
 
+# teenagers = np.where(ages < 25, ages, 0) # in here the teenagers variable will contain the value  1 for  match the condition and the unmatched value will be replaced by 0 without changing the array dimension
+# print(teenagers)
+
+
+# adult = ages[ages >= 25]
+# print(adult)
+
+adult = np.where((ages >= 25 ) & (ages <60) , "Adult" , "Not Adult") 
+print(adult)
