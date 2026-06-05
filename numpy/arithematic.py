@@ -82,16 +82,33 @@ import numpy as np
 
 
 
-# ecercise
+# exercise
 
-radius  =  np.array([2,5,7,10])
+# radius  =  np.array([2,5,7,10])
 
-# calculate the area of the circle with the given radius and print the result as an array
+# # calculate the area of the circle with the given radius and print the result as an array
 
-area = (np.pi * radius ** 2)
-print("Area of the circles:", area)
+# area = (np.pi * radius ** 2)
+# print("Area of the circles:", area)
 
-# calcuate the circumference of the circle with the given radius and print the result as an array
+# # calcuate the circumference of the circle with the given radius and print the result as an array
 
-circum = (2 * np.pi * radius)
-print("Circumference of the circles:", circum)
+# circum = (2 * np.pi * radius)
+# print("Circumference of the circles:", circum)
+
+
+# comparison operations with NumPy arrays
+
+score = np.array([85, 90, 78, 92, 88])
+
+# Comparison: Greater than 80
+greater_than_80 = score > 80
+print("Greater than 80:", greater_than_80)
+
+# Comparison: Less than 90
+less_than_90 = score < 90
+print("Less than 90:", less_than_90)
+
+# Comparison: Equal to 88
+equal_to_88 = score == 88
+print("Equal to 88:", equal_to_88)
