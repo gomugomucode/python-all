@@ -63,6 +63,7 @@ SQLite database tutorial example:
 - `school.db` — SQLite database file
 - `README.md` — local documentation for the SQLite demo
 
+
 ## 🛠️ How to Use This Workspace
 
 1. Explore the folder that matches your interest.
