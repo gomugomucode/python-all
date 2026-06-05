@@ -98,6 +98,7 @@ import numpy as np
 
 
 # comparison operations with NumPy arrays
+# in comparison operations with NumPy arrays, you can use comparison operators such as >, <, ==, !=, >=, and <= to compare each element of the array against a specified value or against another array. The result of these comparisons is a boolean array that indicates whether each comparison is true or false for each element.
 
 score = np.array([85, 90, 78, 92, 88])
 
