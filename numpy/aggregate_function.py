@@ -1,0 +1,14 @@
+import numpy as np
+
+arr1 = np.array([[1,2,3,4,5,6,7,8,9],
+                 [10,11,12,13,14,15,16,17,18],
+                 [19,20,21,22,23,24,25,26,27]])  
+
+print(arr1.shape)
+
+print(np.sum(arr1))  # this will give us the sum of all the elements in the array
+print(np.mean(arr1))  # this will give us the mean of all the elements in the array
+print(np.min(arr1))  # this will give us the minimum value in the array
+print(np.max(arr1))  # this will give us the maximum value in the array
+
+
