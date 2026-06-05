@@ -54,28 +54,44 @@ import numpy as np
 
 
 
-# vectorized mathematical functions with NumPy arrays
+# vectorized mathematical functions with NumPy arrays  or vectorized mathematical operations with NumPy arrays
 
-arr = np.array([1, 2, 3, 4, 5])
+# arr = np.array([1, 2, 3, 4, 5])
 
-# Vectorized Square Root
-vec_sqrt = np.sqrt(arr)
-# print("Vectorized Square Root:", vec_sqrt)
+# # Vectorized Square Root
+# vec_sqrt = np.sqrt(arr)
+# # print("Vectorized Square Root:", vec_sqrt)
 
-# Vectorized Exponential
-vec_exp = np.exp(arr)   
-print("Vectorized Exponential:", vec_exp)
+# # Vectorized Exponential
+# vec_exp = np.exp(arr)   
+# print("Vectorized Exponential:", vec_exp)
 
-# Vectorized Logarithm
-vec_log = np.log(arr)
-print("Vectorized Logarithm:", vec_log)
+# # Vectorized Logarithm
+# vec_log = np.log(arr)
+# print("Vectorized Logarithm:", vec_log)
 
-vec_log_rounded = np.round(vec_log, 2)
-print("Vectorized Logarithm (Rounded):", vec_log_rounded)
+# vec_log_rounded = np.round(vec_log, 2)
+# print("Vectorized Logarithm (Rounded):", vec_log_rounded)
 
-# floor mean round down the value less than or equal to the given value and give the final result as an array
-vec_log_floored = np.floor(vec_log)
-print("Vectorized Logarithm (Floored):", vec_log_floored)
+# # floor mean round down the value less than or equal to the given value and give the final result as an array
+# vec_log_floored = np.floor(vec_log)
+# print("Vectorized Logarithm (Floored):", vec_log_floored)
 
-vec_log_ceiling = np.ceil(vec_log)
-print("Vectorized Logarithm (Ceiling):", vec_log_ceiling)
+# vec_log_ceiling = np.ceil(vec_log)
+# print("Vectorized Logarithm (Ceiling):", vec_log_ceiling)
+
+
+
+# ecercise
+
+radius  =  np.array([2,5,7,10])
+
+# calculate the area of the circle with the given radius and print the result as an array
+
+area = (np.pi * radius ** 2)
+print("Area of the circles:", area)
+
+# calcuate the circumference of the circle with the given radius and print the result as an array
+
+circum = (2 * np.pi * radius)
+print("Circumference of the circles:", circum)
