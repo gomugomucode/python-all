@@ -57,6 +57,8 @@ array = np.array([[1,2,3,4],
 
 # row and colum slicing together
 
+# in row and coumn slicing . it first select the rows and then select the columns from the selected rows
+
 # print(array[0 , 0]) # prints the element at 1st row and 1st column of the array
 
 # print(array[1,1]) # prints the element at 2nd row and 2nd column of the array
