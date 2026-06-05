@@ -23,3 +23,9 @@ print("Subtraction:", sub)
 
 mul =  arr * 15
 print("Multiplication:", mul)
+
+# Division
+# in division . it divide the number with all the elements in the array and give the final result as an array
+
+div = arr / 20
+print("Division:", div)
