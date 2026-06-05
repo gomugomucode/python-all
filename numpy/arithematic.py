@@ -54,3 +54,28 @@ import numpy as np
 
 
 
+# vectorized mathematical functions with NumPy arrays
+
+arr = np.array([1, 2, 3, 4, 5])
+
+# Vectorized Square Root
+vec_sqrt = np.sqrt(arr)
+# print("Vectorized Square Root:", vec_sqrt)
+
+# Vectorized Exponential
+vec_exp = np.exp(arr)   
+print("Vectorized Exponential:", vec_exp)
+
+# Vectorized Logarithm
+vec_log = np.log(arr)
+print("Vectorized Logarithm:", vec_log)
+
+vec_log_rounded = np.round(vec_log, 2)
+print("Vectorized Logarithm (Rounded):", vec_log_rounded)
+
+# floor mean round down the value less than or equal to the given value and give the final result as an array
+vec_log_floored = np.floor(vec_log)
+print("Vectorized Logarithm (Floored):", vec_log_floored)
+
+vec_log_ceiling = np.ceil(vec_log)
+print("Vectorized Logarithm (Ceiling):", vec_log_ceiling)
