@@ -112,3 +112,11 @@ print("Less than 90:", less_than_90)
 # Comparison: Equal to 88
 equal_to_88 = score == 88
 print("Equal to 88:", equal_to_88)
+
+# Comparison: Not equal to 85
+not_equal_to_85 = score != 85
+print("Not equal to 85:", not_equal_to_85)
+
+# comparision: set all the scores greater than 80 to 100 and print the updated scores as an array
+score[score > 80] = 100
+print("Updated Scores (Greater than 80 set to 100):", score)
