@@ -16,8 +16,8 @@ import numpy as np
 # mul_array = arr1 * arr2
 # print(mul_array)
 
-a1 = np.array([1 ,2])
-a2 = np.array([[1,2,3],[4,5,6],[7,8,9]])
+a1 = np.array([1 ,2])  # 1d array 1 row 2 column 
+a2 = np.array([[1,2,3],[4,5,6],[7,8,9]]) # 2d array 3 row 3 column
 
 print(a1.shape)
 print(a2.shape)
