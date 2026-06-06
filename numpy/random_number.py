@@ -28,4 +28,6 @@ rng = np.random.default_rng() # in this default_rng() is used to create a random
 # # #  for 3d array
 # print(rng.uniform(low=1.0, high=10.0, size=(2   , 3, 4))) # This line generates a 3D array of random floats with 2 blocks, 3 rows, and 4 columns in the range [1.0, 10.0) using the uniform() method of the random number generator instance (rng) and prints it to the console. The low and high parameters specify the range for the random float generation, and the size parameter specifies the shape of the output array as a tuple (2, 3, 4).
 
-print(rng.uniform(low=1.0, high=10.0, size=(5 ,5,5)))  # to generate the 5d array
+# print(rng.uniform(low=1.0, high=10.0, size=(5 ,5,5)))  # to generate the 5d array
+
+print(rng.uniform(low=1.0 ,high =10.0 , size = (3,4,2,5,5))) # to generate the 5d array with 3 blocks, 4 rows, 2 columns, and each element is a 5x5 array of random floats in the range [1.0, 10.0). The size parameter specifies the shape of the output array as a tuple (3, 4, 2, 5, 5).
