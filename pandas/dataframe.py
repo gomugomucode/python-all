@@ -29,7 +29,10 @@ df = pd.DataFrame(data, index=['a', 'b', 'c', 'd', 'e'])  # here the index is gi
 # print(df.iloc[4]) 
 
 
+
 #  to add the new row in the dataframe we can do it like this
+
+
 # new_row = {'Name': 'Frank', 'Age': 50}  # here we create a new row as a dictionary where the keys are the column names and the values are the data for each column.
 
 # we cam also add the multiple rows in data frame like thsi  
