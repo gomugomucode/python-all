@@ -107,4 +107,13 @@ df = df.rename(columns={"Jobs": "Occupation" , "City": "City of Residence" , "Co
 
 # By default, df.rename() creates a modified copy of your DataFrame. If you want to update your original DataFrame directly without typing df = df.rename(...), add inplace=True:
 df.rename(columns={"Name": "Full Name", "Age": "Age in Years"}, inplace=True)
+
+# loc use the custom label , colunm name and the update value 
+df.loc['f' ,'Full Name'] = 'Franklin' # to change the value of a specific cell in the DataFrame, we can use the loc method. Here we are changing the value of the 'Full Name' column for the row with index 'f' to 'Franklin'.
+
+#  we can do the same thing using iloc by using the integer index
+# .iloc uses [row_number, column_number] starting from 0
+df.iloc[7,2] = "Dancer"
 print(df)
+
+
