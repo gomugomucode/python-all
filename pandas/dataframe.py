@@ -98,4 +98,8 @@ df["Jobs"] = [
 # or u can do it like this 
 df["City"] = ["KTM", "PKR", "BRT", "LTP", "BTL", "DHR", "JNK", "SNL"]  
 df["Country"] = ["Nepal"] * len(df)  # here we assign the value 'Nepal' to all the rows in the 'Country' column using scalar broadcasting.
+
+# to rename any colunm name
+
+df = df.rename(columns={"Name": "Full Name", "Age": "Age in Years"})
 print(df)
