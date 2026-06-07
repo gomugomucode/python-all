@@ -80,16 +80,22 @@ df["Jobs"] = [
     "Manager",
 ]  # here we create a new column named 'Jobs' and assign a list of values to it. The length of the list should be equal to the number of rows in the DataFrame.
 
-# to add the multiple column in dataframe we can do it like this
-df[["City", "Country"]] = [
-    ["Sunwal", "Nepal"],
-    ["Kathmandu", "Nepal"],
-    ["Pokhara", "Nepal"],
-    ["Biratnagar", "Nepal"],
-    ["Lalitpur", "Nepal"],
-    ["Butwal", "Nepal"],
-    ["Dharan", "Nepal"],
-    ["Janakpur", "Nepal"],
-]  # here we create two new columns named 'City' and 'Country' and assign a list of values to it. The length of the list should be equal to the number of rows in the DataFrame.
+# # to add the multiple column in dataframe we can do it like this
+# df[["City", "Country"]] = [
+#     ["Sunwal", "Nepal"],
+#     ["Kathmandu", "Nepal"],
+#     ["Pokhara", "Nepal"],
+#     ["Biratnagar", "Nepal"],
+#     ["Lalitpur", "Nepal"],
+#     ["Butwal", "Nepal"],
+#     ["Dharan", "Nepal"],
+#     ["Janakpur", "Nepal"],
+# ]  # here we create two new columns named 'City' and 'Country' and assign a list of values to it. The length of the list should be equal to the number of rows in the DataFrame.
 
+# if u have short time and scalar boardcasting then we can do it like this
+# df[["City", "Country"]] = "Unknown"  # here we assign the value 'Unknown' to all the rows in the 'City' and 'Country' columns.
+
+# or u can do it like this 
+df["City"] = ["KTM", "PKR", "BRT", "LTP", "BTL", "DHR", "JNK", "SNL"]  
+df["Country"] = ["Nepal"] * len(df)  # here we assign the value 'Nepal' to all the rows in the 'Country' column using scalar broadcasting.
 print(df)
