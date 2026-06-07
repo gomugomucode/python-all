@@ -31,3 +31,13 @@ series_age = pd.Series(age, index=['Alice', 'Bob', 'Charlie', 'David', 'Eve'])
 # or we can use loc method to access the value of a specific position
 # print(series_age.loc['Alice'])  #loc method is used to access the value of a specific position using the index label of line 23 
 
+# if we wan to access the value of a specific index , we cna do it by using iloc method which is used to access the value of a specific position using the integer index of line 23
+print(series_age.iloc[0])  #iloc method is used to access the value of a specific position using the integer index of line 23, here it will return the value of the first position which is 25.
+
+print(series_age.iloc[1])
+print(series_age.iloc[2])
+print(series_age.iloc[3])
+print(series_age.iloc[4])
+
+# loc select the data according to custom labels and iloc select the data according to the integer index.
+
