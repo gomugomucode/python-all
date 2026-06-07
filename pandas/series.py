@@ -3,6 +3,8 @@
 
 import pandas as pd
 
+# in series we can create data in the form of list and then we can use the pd.Series() function to create a series from the list. The resulting Series will have an index starting from 0 and the values will be the data from the list.
+
 # s = pd.Series([1, 3, 5, 7, 9])
 # print(s)
 
