@@ -18,3 +18,10 @@ df = pd.DataFrame(data, index=['a', 'b', 'c', 'd', 'e'])  # here the index is gi
 # print(df.loc['e'])
 
 # print(df)
+
+#  if u want to select single row from the dataframe using the integer index then we use iloc method do it like this
+print(df.iloc[0])  #iloc method is used to access the value of a
+print(df.iloc[1]) 
+print(df.iloc[2]) 
+print(df.iloc[3]) 
+print(df.iloc[4]) 
