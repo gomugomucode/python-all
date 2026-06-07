@@ -102,4 +102,9 @@ df["Country"] = ["Nepal"] * len(df)  # here we assign the value 'Nepal' to all t
 # to rename any colunm name
 
 df = df.rename(columns={"Name": "Full Name", "Age": "Age in Years"})
+
+df = df.rename(columns={"Jobs": "Occupation" , "City": "City of Residence" , "Country": "Country of Residence"})
+
+# By default, df.rename() creates a modified copy of your DataFrame. If you want to update your original DataFrame directly without typing df = df.rename(...), add inplace=True:
+df.rename(columns={"Name": "Full Name", "Age": "Age in Years"}, inplace=True)
 print(df)
