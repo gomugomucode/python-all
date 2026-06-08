@@ -14,3 +14,11 @@ def letter_grade(score):
     else:
         return "F"
          
+# Task 2 created the analyse(students)
+def analyse(students):
+    analyzed_data = {}
+    for  name , score in students.items():
+        grade = letter_grade(score)
+        analyzed_data[name] = {"score" : score , "grade":grade }
+    return analyzed_data
+    
