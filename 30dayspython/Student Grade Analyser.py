@@ -68,7 +68,8 @@ def summary(results):
     counts = {}
     for data in results.values():
         grade = data["grade"]
-        counts[grade] = counts.get(grade, 0) + 1
+        # [ Where to save ]   [ Look up existing ]   [ Add ]
+        counts[grade]   =   counts.get(grade, 0)   +   1
 
 # this code is the same as above 1 line code of 71 but without using get() method
 #         if grade not in counts:
