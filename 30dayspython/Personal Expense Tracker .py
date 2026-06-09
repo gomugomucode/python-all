@@ -34,6 +34,23 @@ def add_expense(filename, category, amount):
         print(f"Successfully added: {category}, {amount}")
 
 
+
+def category_totals(expenses):
+   # Created an empty dictionary to track totals
+    totals = {}
+    
+    for category, amount in expenses:
+        totals[category] = totals.get(category, 0) + amount 
+
+    print("\nCategory totals:")
+    print(f"{'Category':<15} | {'Total':<10}")
+    print("-" * 28)
+    
+    for category, total_amount in totals.items():
+        print(f"{category:<15} | Rs. {total_amount:<10}")
+
+
+
 # 1. Get the directory where your script is saved
 script_dir = os.path.dirname(
     os.path.abspath(
