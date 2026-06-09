@@ -66,15 +66,16 @@ def above_threshold(expenses, limit):
             print(f"{category:<15} | Rs. {total_amount:<10}")
 
 
-# 1. Get the directory where your script is saved
-script_dir = os.path.dirname(
-    os.path.abspath(
-        "C:\\Users\\Anupam Baral\\Downloads\\python\\30dayspython\\Personal Expense Tracker .py"
-    )
-)
+if __name__ == "__main__":
+    filename = "expenses.txt"
+    current_expenses = load_expenses(filename)
+    
+    if not current_expenses:
+        print(f"Warning: No expenses loaded. Please check that '{filename}' exists and has valid data.")
+    else:
+        category_totals(current_expenses)
+        above_threshold(current_expenses, 100)
 
-# 2. Join that directory path with your filename
-filename = os.path.join(script_dir, "expenses.txt")
 
 
 print(load_expenses(filename))
