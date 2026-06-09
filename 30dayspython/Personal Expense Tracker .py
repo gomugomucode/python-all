@@ -1,6 +1,5 @@
 
 import os
-
 def load_expenses(filename):
     expenses = []
     
@@ -14,15 +13,16 @@ def load_expenses(filename):
             if not clean_line:
                 continue
                 
-            # 2. Split the line into category and amount at the comma
+            # 2. Skip lines that are missing a comma
+            if ',' not in clean_line:
+                print(f"Skipping malformed line: '{clean_line}'")
+                continue
+                
+            # 3. Now it is safe to split!
             category, amount = clean_line.split(',')
-            
-            # 3. Convert the amount to an  float and save as a tuple
             expenses.append((category, int(amount)))
             
     return expenses
-
-
 
 # 1. Get the directory where your script is saved
 script_dir = os.path.dirname(os.path.abspath("C:\\Users\\Anupam Baral\\Downloads\\python\\30dayspython\\Personal Expense Tracker .py"))
