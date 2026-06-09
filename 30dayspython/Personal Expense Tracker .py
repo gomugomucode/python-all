@@ -3,34 +3,42 @@ import os
 
 def load_expenses(filename):
     expenses = []
+    
+    try:
+        with open(filename, 'r') as file:
+            for line in file:
+               # 1. strip() removes the hidden newline character '\n'
+                clean_line = line.strip()
+                  # Skip empty lines if there are any in the file
+                if not clean_line:
+                    continue
+                    
+                parts = clean_line.split(',')
 
-    # Open the file in read mode ('r')
-    with open(filename, "r") as file:
-        for line in file:
-            # 1. strip() removes the hidden newline character '\n'
-            clean_line = line.strip()
-
-            # Skip empty lines if there are any in the file
-            if not clean_line:
-                continue
-
-            # 2. Skip lines that are missing a comma
-            if "," not in clean_line:
-                print(f"Skipping malformed line: '{clean_line}'")
-                continue
-
-            # 3. Now it is safe to split!
-            category, amount = clean_line.split(",")
-            expenses.append((category, int(amount)))
-
+                if len(parts) != 2:
+                    print(f"Skipping malformed line (incorrect commas): '{clean_line}'")
+                    continue
+                
+                category = parts[0].strip()
+                amount_str = parts[1].strip()
+                
+                try:
+                    expenses.append((category, float(amount_str)))
+                except ValueError:
+                    print(f"Skipping line with invalid number format: '{clean_line}'")
+                    continue
+                    
+    except FileNotFoundError:
+        return []
+        
     return expenses
 
 
 def add_expense(filename, category, amount):
     # Opening with 'a' appends data to the end of the file
-    with open(filename) as file:
+    with open(filename, "a") as file:
         # \n ensures the new expense starts on a clean, new line
-        file.write(f"{category},{amount}")
+        file.write(f"\n{category},{amount}\n")
         print(f"Successfully added: {category}, {amount}")
 
 
@@ -84,6 +92,3 @@ if __name__ == "__main__":
         category_totals(current_expenses)
         above_threshold(current_expenses, 100)
 
-
-
-print(load_expenses(filename))
