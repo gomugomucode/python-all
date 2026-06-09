@@ -1,3 +1,6 @@
+
+import os
+
 def load_expenses(filename):
     expenses = []
     
@@ -19,6 +22,13 @@ def load_expenses(filename):
             
     return expenses
 
-    print(load_expenses(notebooks/expenses.txt))
-        
-        
+
+
+# 1. Get the directory where your script is saved
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 2. Join that directory path with your filename
+filename = os.path.join(script_dir, "expenses.txt")
+
+filename = "expenses.txt"
+print(load_expenses(filename))
