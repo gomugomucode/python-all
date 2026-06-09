@@ -67,7 +67,15 @@ def above_threshold(expenses, limit):
 
 
 if __name__ == "__main__":
-    filename = "expenses.txt"
+    # 1. Get the directory where your script is saved
+    script_dir = os.path.dirname(
+        os.path.abspath(
+            "C:\\Users\\Anupam Baral\\Downloads\\python\\30dayspython\\Personal Expense Tracker .py"
+        )
+    )
+
+    # 2. Join that directory path with your filename
+    filename = os.path.join(script_dir, "expenses.txt")
     current_expenses = load_expenses(filename)
     
     if not current_expenses:
