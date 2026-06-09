@@ -49,6 +49,21 @@ def category_totals(expenses):
     for category, total_amount in totals.items():
         print(f"{category:<15} | Rs. {total_amount:<10}")
 
+def above_threshold(expenses, limit):
+    totals = {}
+    
+    # 1. Sum up all expenses by category
+    for category, amount in expenses:
+        totals[category] = totals.get(category, 0) + amount 
+        
+    print(f"\nCategories exceeding Rs. {limit}:")
+    print(f"{'Category':<15} | {'Total':<10}")
+    print("-" * 28)
+
+    # 2. loop to filter and print totals over the limit
+    for category, total_amount in totals.items():
+        if total_amount > limit:
+            print(f"{category:<15} | Rs. {total_amount:<10}")
 
 
 # 1. Get the directory where your script is saved
