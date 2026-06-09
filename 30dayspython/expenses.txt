@@ -4,4 +4,3 @@ Food,200
 Entertainment,120
 Utilities,300
 Transport,45
-Expected 
