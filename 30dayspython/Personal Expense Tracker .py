@@ -24,6 +24,13 @@ def load_expenses(filename):
             
     return expenses
 
+def add_expense(filename, category, amount):
+    # Opening with 'a' appends data to the end of the file
+    with open(filename) as file:
+        # \n ensures the new expense starts on a clean, new line
+        file.write(f"{category},{amount}")
+        print(f"Successfully added: {category}, {amount}")
+
 # 1. Get the directory where your script is saved
 script_dir = os.path.dirname(os.path.abspath("C:\\Users\\Anupam Baral\\Downloads\\python\\30dayspython\\Personal Expense Tracker .py"))
 
