@@ -26,6 +26,13 @@ class Book:
         self.available = False 
         print(f"The book {self.title}  is borrowed")
 
+    def return_book(self ):
+        if self.available == True :
+            raise ValueError ("The book isnot currently borrowed")
+        self.available = True  
+        print(f"The book {self.title}  is available")
+        
+
    
 
 
