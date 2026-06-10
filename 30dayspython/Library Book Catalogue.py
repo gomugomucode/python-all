@@ -33,7 +33,10 @@ class Book:
         print(f"The book {self.title}  is available")
         
 
-   
+    def __str__(self):
+        status = "✓" if self.available == True  else "✗"
+        return(f"{status} {self.title} | {self.author} |{self.genre} ")
+        
 
 
 b1 = Book("Python Crash Course", "Eric Matthes", "Programming")
