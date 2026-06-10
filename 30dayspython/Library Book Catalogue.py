@@ -16,4 +16,9 @@ class Book:
         # Extracts data from dictionary and creates the class instance
         return cls(data["title"], data["author"], data["genre"])
     
+    # Instruction 2: Return the total count formatted as requested
+    @classmethod
+    def get_total(cls):
+        return f"Total books registered: {cls.total_books}"
+    
     
