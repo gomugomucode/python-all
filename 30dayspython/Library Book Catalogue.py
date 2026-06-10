@@ -21,4 +21,6 @@ class Book:
     def get_total(cls):
         return f"Total books registered: {cls.total_books}"
     
-    
+    def __str__(self):
+        status = "✓" if self.available else "✗"
+        return(f"{status} {self.title} | {self.author} |{self.genre} ")
