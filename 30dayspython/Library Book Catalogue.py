@@ -33,9 +33,9 @@ class Book:
         try:
             if self.available == True:
                 raise ValueError(f"'{self.title}' is not currently borrowed")
-            self.available = True  
+            self.available = True
         except ValueError as e:
-            print(f"[✗] ValueError: {e}") 
+            print(f"[✗] ValueError: {e}")
 
     def __str__(self):
         status = "✓" if self.available == True else "✗"
@@ -47,10 +47,10 @@ class Book:
 # 1. Create 4 books (including one via from_dict)
 b1 = Book("Python Crash Course", "Eric Matthes", "Programming")
 b2 = Book("Sapiens", "Yuval Noah Harari", "History")
-b3 = Book.from_dict({
-    "title": "Deep Work", "author": "Cal Newport", "genre": "Productivity"
-})
-b4 = Book("The Hobbit", "J.R.R. Tolkien", "Fantasy") 
+b3 = Book.from_dict(
+    {"title": "Deep Work", "author": "Cal Newport", "genre": "Productivity"}
+)
+b4 = Book("The Hobbit", "J.R.R. Tolkien", "Fantasy")
 
 # 2. Borrow 2 books
 b1.borrow()
@@ -64,7 +64,7 @@ print(b4)
 
 # 4. Return one book and print it again
 b1.return_book()
-print(b1) 
+print(b1)
 
 # 5. Try to borrow the same book again and handle the exception
 b2.borrow()
