@@ -27,7 +27,7 @@ class Book:
                 raise ValueError(f"'{self.title}' is already borrowed")
             self.available = False
         except ValueError as e:
-            print(f"❌ ValueError: {e}")
+            print(f"[✗] ValueError: {e}")
 
     def return_book(self):
         try:
