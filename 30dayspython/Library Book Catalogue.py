@@ -21,7 +21,7 @@ class Book:
     def get_total(cls):
         return f"Total books registered: {cls.total_books}"
 
-        def borrow(self):
+    def borrow(self):
         try:
             if self.available == False:
                 raise ValueError(f"'{self.title}' is already borrowed")
@@ -62,5 +62,13 @@ print(b2)
 print(b3)
 print(b4)
 
-# 4. Print the total count
+# 4. Return one book and print it again
+b1.return_book()
+print(b1) 
+
+# 5. Try to borrow the same book again and handle the exception
+b2.borrow()
+
+
+# 6. Print the total count
 print(Book.get_total())
