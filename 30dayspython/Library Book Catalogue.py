@@ -21,15 +21,21 @@ class Book:
     def get_total(cls):
         return f"Total books registered: {cls.total_books}"
 
-    def borrow(self):
-        if self.available == False:
-            raise ValueError(f"'{self.title}' is already borrowed")
-        self.available = False
+        def borrow(self):
+        try:
+            if self.available == False:
+                raise ValueError(f"'{self.title}' is already borrowed")
+            self.available = False
+        except ValueError as e:
+            print(f"❌ ValueError: {e}")
 
     def return_book(self):
-        if self.available == True:
-            raise ValueError(f"'{self.title}' is not currently borrowed")
-        self.available = True  
+        try:
+            if self.available == True:
+                raise ValueError(f"'{self.title}' is not currently borrowed")
+            self.available = True  
+        except ValueError as e:
+            print(f"❌ ValueError: {e}") 
 
     def __str__(self):
         status = "✓" if self.available == True else "✗"
