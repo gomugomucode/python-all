@@ -24,3 +24,13 @@ class Book:
     def __str__(self):
         status = "✓" if self.available else "✗"
         return(f"{status} {self.title} | {self.author} |{self.genre} ")
+    
+
+b1 = Book("Python Crash Course", "Eric Matthes", "Programming")
+b2 = Book("Sapiens", "Yuval Noah Harari", "History")
+b3 = Book.from_dict({
+    "title": "Deep Work", "author": "Cal Newport", "genre": "Productivity"
+})
+print(b1)
+print(b2)
+print(b3)
