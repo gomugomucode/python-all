@@ -35,7 +35,7 @@ class Book:
                 raise ValueError(f"'{self.title}' is not currently borrowed")
             self.available = True  
         except ValueError as e:
-            print(f"❌ ValueError: {e}") 
+            print(f"[✗] ValueError: {e}") 
 
     def __str__(self):
         status = "✓" if self.available == True else "✗"
