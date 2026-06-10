@@ -9,3 +9,11 @@ class Book:
         self.available  = available
         # Increase the counter every time __init__ runs
         Book.total_books += 1
+    
+     # Instruction 1: Create a Book from a dictionary
+    @classmethod
+    def from_dict(cls, data):
+        # Extracts data from dictionary and creates the class instance
+        return cls(data["title"], data["author"], data["genre"])
+    
+    
