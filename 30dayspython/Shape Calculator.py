@@ -87,4 +87,6 @@ if __name__ == "__main__":
     print(c1.perimeter())                  # 31.42
     print(r2.is_square())                  # True
 
-   
+    # Static methods test
+    print(Circle.cm_to_inch(10))           # 3.937
+    print(Rectangle.is_valid_dimension(-2)) # False
