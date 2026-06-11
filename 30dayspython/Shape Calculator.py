@@ -91,7 +91,9 @@ if __name__ == "__main__":
     print(r1.area())                       # 24.00
     print(r1.perimeter())                  # 20.00
 
-    
+    print(r2)                              # Rectangle(5 x 5)
+    print(r2.area())                       # 25.00
+    print(r2.perimeter())                  # 20.00
 
     # Static methods test
     print(Circle.cm_to_inch(10))           # 3.937
