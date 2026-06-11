@@ -81,4 +81,10 @@ if __name__ == "__main__":
     r1 = Rectangle(4, 6)
     r2 = Rectangle(5, 5)
 
+    # Sample Output Checks
+    print(c1)                              # Circle(r=5)
+    print(c1.area())                       # 78.54
+    print(c1.perimeter())                  # 31.42
+    print(r2.is_square())                  # True
+
    
