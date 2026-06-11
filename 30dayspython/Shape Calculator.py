@@ -22,3 +22,9 @@ class Rectangle :
     def __init__(self ,width , height  ):
         self.width   = width 
         self.height   = height
+    
+    def is_square(self):
+        if self.width == self.height :
+            return True
+        else :
+            return False
