@@ -16,3 +16,9 @@ class Circle :
             raise ValueError(f"Radius cannot be negative. Got: {self.radius}")
         perimeter = 2 * math.pi * self.radius  
         return f"The perimeter of circle is {perimeter}"
+    
+class Rectangle :
+
+    def __init__(self ,width , height  ):
+        self.width   = width 
+        self.height   = height
