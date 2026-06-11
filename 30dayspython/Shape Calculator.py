@@ -90,3 +90,8 @@ if __name__ == "__main__":
     # Static methods test
     print(Circle.cm_to_inch(10))           # 3.937
     print(Rectangle.is_valid_dimension(-2)) # False
+
+    
+    # Class methods test
+    print(Circle.total_created())          # Circles created: 3
+    print(Rectangle.total_created())       # Rectangles created: 2
