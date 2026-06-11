@@ -28,3 +28,9 @@ class Rectangle :
             return True
         else :
             return False
+    
+    def  area(self):
+        if self.width or self.height   <= 0:
+            raise ValueError(f"Dimension  cannot be negative. Got: {self.radius}") 
+        area = math.pi * self.radius *self.radius 
+        return f"The area of circle is {area}"
