@@ -57,9 +57,4 @@ class Rectangle :
             return f"Dimension cannot be negative. Got: {val}"  
         return True 
 
-       
-        
-
-    
-        
         
