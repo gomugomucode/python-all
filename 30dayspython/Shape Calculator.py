@@ -34,3 +34,9 @@ class Rectangle :
             raise ValueError(f"Dimension  cannot be negative. Got: {self.radius}") 
         area = math.pi * self.radius *self.radius 
         return f"The area of circle is {area}"
+
+    def  perimeter(self):
+        if self.radius <= 0:
+            raise ValueError(f"Dimension  cannot be negative. Got: {self.radius}")
+        perimeter = 2 * math.pi * self.radius  
+        return f"The perimeter of circle is {perimeter}"
