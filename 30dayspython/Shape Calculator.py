@@ -72,3 +72,8 @@ class Rectangle:
     @classmethod
     def total_created(cls):
         return f"Rectangles created: {cls.shapes_created}"
+
+if __name__ == "__main__":
+    c1 = Circle(5)
+    c2 = Circle(3)
+   
