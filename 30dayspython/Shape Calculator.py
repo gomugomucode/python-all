@@ -76,4 +76,9 @@ class Rectangle:
 if __name__ == "__main__":
     c1 = Circle(5)
     c2 = Circle(3)
+    c3 = Circle(10) 
+    
+    r1 = Rectangle(4, 6)
+    r2 = Rectangle(5, 5)
+
    
