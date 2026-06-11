@@ -44,3 +44,13 @@ class Rectangle :
     @staticmethod 
     def cm_to_inch(a):
         return(f"The value in inch is {a * 0.3937 }inch")
+    
+    @staticmethod
+    def inch_to_cm(a):
+        return(f"The value in cm is {a * 2.54 }cm")
+
+    @staticmethod 
+    def is_valid_dimension(val):
+        if val < 0:
+            return f"Dimension cannot be negative. Got: {val}"  
+        return True 
