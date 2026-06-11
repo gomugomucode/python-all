@@ -40,3 +40,7 @@ class Rectangle :
             raise ValueError(f"Dimension  cannot be negative. Got: {self.radius}")
         perimeter = 2 * math.pi * self.radius  
         return f"The perimeter of circle is {perimeter}"
+
+    @staticmethod 
+    def cm_to_inch(a):
+        return(f"The value in inch is {a * 0.3937 }inch")
