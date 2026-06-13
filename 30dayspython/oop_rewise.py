@@ -184,3 +184,36 @@ node = ServerNode("192.168.1.45", 801)
 print(str(node))   # Returns: Node-801 (192.168.1.45)
 print(repr(node))  # Returns: ServerNode(ip_address='192.168.1.45', node_id=801)
 
+
+
+
+
+
+# Iterators & Generatorspython
+class StepValueIterator:
+    """Custom iterator stepping forwards by specific configurations."""
+    def __init__(self, stop: int, step: int):
+        self.stop = stop
+        self.step = step
+        self.current = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current >= self.stop:
+            raise StopIteration
+        val = self.current
+        self.current += self.step
+        return val
+
+def step_value_generator(stop: int, step: int):
+    """Shorter generator tracking exact matching stepping sequences."""
+    curr = 0
+    while curr < stop:
+        yield curr
+        curr += step
+
+# Test both structures
+print("Iterator output:", list(StepValueIterator(15, 3)))
+print("Generator output:", list(step_value_generator(15, 3)))
