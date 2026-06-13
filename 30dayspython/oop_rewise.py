@@ -1,3 +1,5 @@
+# Encapsulation & Name Mangling
+
 class SecureVault:
     def __init__(self, owner: str, initial_key: str):
         self.owner = owner
@@ -16,3 +18,4 @@ print(f"Vault Owner: {vault.owner}")
 # Accessing both private variables externally via explicit name mangling
 print(f"Mangled Key: {vault._SecureVault__vault_key}")
 print(f"Mangled Logs: {vault._SecureVault__access_logs}")
+
