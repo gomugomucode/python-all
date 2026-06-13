@@ -217,3 +217,28 @@ def step_value_generator(stop: int, step: int):
 # Test both structures
 print("Iterator output:", list(StepValueIterator(15, 3)))
 print("Generator output:", list(step_value_generator(15, 3)))
+
+
+
+
+
+#  Decoratorspython
+def validation_gate(func):
+    """Decorator checking argument types before execution run."""
+    def wrapper(*args, **kwargs):
+        print("[GATEWAY]: Verifying parameter rules...")
+        for argument in args:
+            if isinstance(argument, str) and len(argument) < 3:
+                return "Operation Cancelled: String entry too short."
+        return func(*args, **kwargs)
+    return wrapper
+
+@validation_gate
+def register_profile(username: str):
+    return f"Profile verified and saved for {username}."
+
+# Test cases
+print(register_profile("Administrator")) # Runs completely
+print(register_profile("ex"))            # Intercepted and blocked by gate
+
+
