@@ -111,29 +111,54 @@
 
 
 
-# Duck Typing & Mixinspython 
-class ExportPDFMixin:
-    def generate_pdf(self):
-        return f"PDF generated for {id(self)}"
+# # Duck Typing & Mixinspython 
+# class ExportPDFMixin:
+#     def generate_pdf(self):
+#         return f"PDF generated for {id(self)}"
 
-class Invoice(ExportPDFMixin):
-    def display_billing(self): return "Billing Details"
+# class Invoice(ExportPDFMixin):
+#     def display_billing(self): return "Billing Details"
 
-# Two entirely unrelated classes sharing matching method signatures
-class SpeedBoat:
-    def move(self): return "Slicing through ocean waves."
+# # Two entirely unrelated classes sharing matching method signatures
+# class SpeedBoat:
+#     def move(self): return "Slicing through ocean waves."
 
-class SpaceShuttle:
-    def move(self): return "Breaking orbit entry velocities."
+# class SpaceShuttle:
+#     def move(self): return "Breaking orbit entry velocities."
 
-def launch_sequence(vehicle_obj):
-    """Duck Typing: Expects a move() method. Does not care about class family."""
-    print(f"Launch report: {vehicle_obj.move()}")
+# def launch_sequence(vehicle_obj):
+#     """Duck Typing: Expects a move() method. Does not care about class family."""
+#     print(f"Launch report: {vehicle_obj.move()}")
 
-# Test Mixin and Duck Typing
-bill = Invoice()
-print(bill.generate_pdf())  # Mixin added function completely out of context
+# # Test Mixin and Duck Typing
+# bill = Invoice()
+# print(bill.generate_pdf())  # Mixin added function completely out of context
 
-boat, ship = SpeedBoat(), SpaceShuttle()
-launch_sequence(boat)       # Works perfectly
-launch_sequence(ship)       # Works perfectly
+# boat, ship = SpeedBoat(), SpaceShuttle()
+# launch_sequence(boat)       # Works perfectly
+# launch_sequence(ship)       # Works perfectly
+
+
+
+#  Abstraction (ABC, @abstractmethod)python 
+from abc import ABC, abstractmethod
+
+class GameController(ABC):
+    @abstractmethod
+    def press_action_button(self) -> str:
+        pass
+
+class PlayStationController(GameController):
+    def press_action_button(self) -> str:
+        return "X button registered on DualSense."
+
+class XboxController(GameController):
+    def press_action_button(self) -> str:
+        return "A button registered on Core Controller."
+
+# Test abstraction implementation rules
+# basic_pad = GameController() # Throws TypeError (Cannot instantiate)
+ps5 = PlayStationController()
+series_x = XboxController()
+print(ps5.press_action_button())
+print(series_x.press_action_button())
