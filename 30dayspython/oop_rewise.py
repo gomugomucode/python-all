@@ -242,3 +242,19 @@ print(register_profile("Administrator")) # Runs completely
 print(register_profile("ex"))            # Intercepted and blocked by gate
 
 
+
+#  Python Data Types & Type Hints python 
+from typing import List, Union
+
+def process_temperatures(readings: List[Union[int, float]]) -> List[float]:
+    """Demonstrates conversion mechanics between int inputs and float results."""
+    converted_list: List[float] = []
+    for item in readings:
+        # Explicit conversion safely handles float/int conversion differences
+        float_conversion = float(item)
+        converted_list.append(float_conversion)
+    return converted_list
+
+# Test explicit mapping and hints
+raw_metrics = [32, 36.5, 40, 102.1]
+print(process_temperatures(raw_metrics))
