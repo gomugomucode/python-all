@@ -162,3 +162,25 @@ ps5 = PlayStationController()
 series_x = XboxController()
 print(ps5.press_action_button())
 print(series_x.press_action_button())
+
+
+
+# Magic Methods (__str__ and __repr__)python
+class ServerNode:
+    def __init__(self, ip_address: str, node_id: int):
+        self.ip_address = ip_address
+        self.node_id = node_id
+
+    def __str__(self) -> str:
+        """Clean string for frontend readouts, terminal dashboards, or logs."""
+        return f"Node-{self.node_id} ({self.ip_address})"
+
+    def __repr__(self) -> str:
+        """Formal code replication representation intended for debugging runs."""
+        return f"ServerNode(ip_address='{self.ip_address}', node_id={self.node_id})"
+
+# Test
+node = ServerNode("192.168.1.45", 801)
+print(str(node))   # Returns: Node-801 (192.168.1.45)
+print(repr(node))  # Returns: ServerNode(ip_address='192.168.1.45', node_id=801)
+
