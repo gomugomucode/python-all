@@ -91,20 +91,49 @@
 
 
 
-# Polymorphism & Method Overridingpython 
-class DataCompressor:
-    def compress(self, file_path: str) -> str:
-        return f"Standard archiving for {file_path}"
+# # Polymorphism & Method Overridingpython 
+# class DataCompressor:
+#     def compress(self, file_path: str) -> str:
+#         return f"Standard archiving for {file_path}"
 
-class ZipCompressor(DataCompressor):
-    def compress(self, file_path: str) -> str:
-        return f"Deflate compression algorithm applied to {file_path}.zip"
+# class ZipCompressor(DataCompressor):
+#     def compress(self, file_path: str) -> str:
+#         return f"Deflate compression algorithm applied to {file_path}.zip"
 
-class TarGzCompressor(DataCompressor):
-    def compress(self, file_path: str) -> str:
-        return f"Gzip compression system applied to {file_path}.tar.gz"
+# class TarGzCompressor(DataCompressor):
+#     def compress(self, file_path: str) -> str:
+#         return f"Gzip compression system applied to {file_path}.tar.gz"
 
-# Test polymorphic execution loop
-workers = [ZipCompressor(), TarGzCompressor(), DataCompressor()]
-for engine in workers:
-    print(engine.compress("logs/today"))
+# # Test polymorphic execution loop
+# workers = [ZipCompressor(), TarGzCompressor(), DataCompressor()]
+# for engine in workers:
+    # print(engine.compress("logs/today"))
+
+
+
+# Duck Typing & Mixinspython 
+class ExportPDFMixin:
+    def generate_pdf(self):
+        return f"PDF generated for {id(self)}"
+
+class Invoice(ExportPDFMixin):
+    def display_billing(self): return "Billing Details"
+
+# Two entirely unrelated classes sharing matching method signatures
+class SpeedBoat:
+    def move(self): return "Slicing through ocean waves."
+
+class SpaceShuttle:
+    def move(self): return "Breaking orbit entry velocities."
+
+def launch_sequence(vehicle_obj):
+    """Duck Typing: Expects a move() method. Does not care about class family."""
+    print(f"Launch report: {vehicle_obj.move()}")
+
+# Test Mixin and Duck Typing
+bill = Invoice()
+print(bill.generate_pdf())  # Mixin added function completely out of context
+
+boat, ship = SpeedBoat(), SpaceShuttle()
+launch_sequence(boat)       # Works perfectly
+launch_sequence(ship)       # Works perfectly
