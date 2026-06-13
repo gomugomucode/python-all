@@ -67,24 +67,44 @@
 # print(f"Server deployed in {server.region} with {server.ram_gb}GB RAM.")
 
 
-# . Multiple Inheritance and MRO (The Diamond Problem)python 
-class Asset:
-    def get_status(self): return "Base Asset active."
+# # . Multiple Inheritance and MRO (The Diamond Problem)python 
+# class Asset:
+#     def get_status(self): return "Base Asset active."
 
-class IntellectualProperty(Asset):
-    def get_status(self): return "IP protected by copyright."
+# class IntellectualProperty(Asset):
+#     def get_status(self): return "IP protected by copyright."
 
-class PhysicalProperty(Asset):
-    def get_status(self): return "Physical storage verified."
+# class PhysicalProperty(Asset):
+#     def get_status(self): return "Physical storage verified."
 
-class DigitalArtwork(IntellectualProperty, PhysicalProperty):
-    """Inherits from two child classes sharing the same base parent."""
-    pass
+# class DigitalArtwork(IntellectualProperty, PhysicalProperty):
+#     """Inherits from two child classes sharing the same base parent."""
+#     pass
 
-# Test
-nft = DigitalArtwork()
-# Follows MRO: Left-to-right, depth-first, then up to the common ancestor
-print(f"Resolved execution: {nft.get_status()}") 
-print("\n MRO Resolution Chain:")
-for target_class in DigitalArtwork.__mro__:
-    print(f" -> {target_class.__name__}")
+# # Test
+# nft = DigitalArtwork()
+# # Follows MRO: Left-to-right, depth-first, then up to the common ancestor
+# print(f"Resolved execution: {nft.get_status()}") 
+# print("\n MRO Resolution Chain:")
+# for target_class in DigitalArtwork.__mro__:
+#     print(f" -> {target_class.__name__}")
+
+
+
+# Polymorphism & Method Overridingpython 
+class DataCompressor:
+    def compress(self, file_path: str) -> str:
+        return f"Standard archiving for {file_path}"
+
+class ZipCompressor(DataCompressor):
+    def compress(self, file_path: str) -> str:
+        return f"Deflate compression algorithm applied to {file_path}.zip"
+
+class TarGzCompressor(DataCompressor):
+    def compress(self, file_path: str) -> str:
+        return f"Gzip compression system applied to {file_path}.tar.gz"
+
+# Test polymorphic execution loop
+workers = [ZipCompressor(), TarGzCompressor(), DataCompressor()]
+for engine in workers:
+    print(engine.compress("logs/today"))
