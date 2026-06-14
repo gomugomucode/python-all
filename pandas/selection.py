@@ -18,3 +18,11 @@ df = pd.read_csv('data.csv')
 # print(df["Type2"])
 
 
+# selecting multiple column
+# for that we must pass python list
+
+# print(df[["Name" , "Height" , "Weight"]])
+
+# selecting by rows
+
+print(df.loc[0])
