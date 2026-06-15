@@ -19,7 +19,7 @@ class BankAccount:
         if amount <= 0:
             print("Error: Deposit amount must be greater than zero.")
             return
-        
+
         self.__balance += amount
 
     #  Validate and execute standard withdrawals
@@ -33,7 +33,7 @@ class BankAccount:
         if amount > self.__balance:
             print("Not enough balance!")
             return
-        
+
         self.__balance -= amount
 
 
@@ -66,14 +66,14 @@ class CurrentAccount(BankAccount):
         if amount <= 0:
             print("Error: Withdrawal amount must be greater than zero.")
             return
-        
+
         # Calculate max allowable debt
         available_total = self.get_balance() + self.overdraft_limit
-        
+
         if amount > available_total:
             print("Overdraft limit reached!")
             return
-        
+
         # Safely update the balance using the parent's internal helper method
         new_balance = self.get_balance() - amount
         self._set_balance(new_balance)
@@ -84,12 +84,12 @@ class CurrentAccount(BankAccount):
 print("--- Savings Account ---")
 s = SavingsAccount("Asha", 1000)
 s.deposit(500)
-s.add_interest(10)      # 10% interest on 1500 is 150
+s.add_interest(10)  # 10% interest on 1500 is 150
 print(s.get_balance())  # Output: 1650.0
-s.withdraw(5000)        # Output: Not enough balance!
+s.withdraw(5000)  # Output: Not enough balance!
 
 print("\n--- Current Account ---")
 c = CurrentAccount("Bibek", 200, overdraft_limit=500)
-c.withdraw(600)         # Allowed (goes to -400)
+c.withdraw(600)  # Allowed (goes to -400)
 print(c.get_balance())  # Output: -400
-c.withdraw(200)         # Output: Overdraft limit reached!
+c.withdraw(200)  # Output: Overdraft limit reached!
