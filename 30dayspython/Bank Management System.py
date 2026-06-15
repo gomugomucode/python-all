@@ -82,3 +82,15 @@ class CurrentAccount(BankAccount):
                 return self.__balance
 
         
+#  Savings account
+s = SavingsAccount("Asha", 1000)
+s.deposit(500)
+s.add_interest(10) # 10% interest
+print(s.get_balance()) # 1650.0
+s.withdraw(5000) # Not enough balance!
+
+# Current account with overdraft
+c = CurrentAccount("Bibek", 200, overdraft_limit=500)
+c.withdraw(600) # allowed (goes to -400)
+print(c.get_balance()) # -400
+c.withdraw(200) # Overdraft limit reached!
