@@ -22,6 +22,7 @@ class BankAccount:
             raise ValueError("Amount must be a greater than zero ")
 
         self.__balance += amount
+        return self.__balance
 
     def withdraw(self, amount):
         if isinstance(amount, (int, float)):
@@ -33,3 +34,28 @@ class BankAccount:
             )
 
         self.__balance -= amount
+        return self.__balance
+
+
+class SavingsAccount(BankAccount):
+    def __init__(self, name, __balance, interest):
+        super().__init__(name, __balance)
+        self.interest = interest
+
+    def add_interest(self, rate):
+        self.interest = (self.__balance * rate) / 100
+        return self.interest
+
+    def deposit(self, amount):
+        return super().deposit(amount)
+
+    @property
+    def get_balance(self):
+        return super().get_balance
+
+    @get_balance.setter
+    def get_balance(self):
+        self.__balance += self.interest
+
+    def withdraw(self, amount):
+        return super().withdraw(amount)
