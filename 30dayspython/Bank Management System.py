@@ -3,7 +3,7 @@ class BankAccount:
         self.name = name
         self.__balance = balance  # Encapsulated private attribute
 
-    # Task 3: Standard getter method
+    #  Standard getter method
     def get_balance(self):
         return self.__balance
 
@@ -11,7 +11,7 @@ class BankAccount:
     def _set_balance(self, amount):
         self.__balance = amount
 
-    # Task 2: Validate and execute deposits
+    #  Validate and execute deposits
     def deposit(self, amount):
         if not isinstance(amount, (int, float)):
             print("Error: Amount must be a number.")
@@ -22,7 +22,7 @@ class BankAccount:
         
         self.__balance += amount
 
-    # Task 2: Validate and execute standard withdrawals
+    #  Validate and execute standard withdrawals
     def withdraw(self, amount):
         if not isinstance(amount, (int, float)):
             print("Error: Amount must be a number.")
@@ -37,7 +37,7 @@ class BankAccount:
         self.__balance -= amount
 
 
-# Task 4: Savings Account
+#  Savings Account
 class SavingsAccount(BankAccount):
     def __init__(self, name, balance=0):
         # Pass the arguments to the parent constructor
@@ -52,7 +52,7 @@ class SavingsAccount(BankAccount):
         self.deposit(interest_earned)
 
 
-# Task 5: Current Account with Overdraft
+#  Current Account with Overdraft
 class CurrentAccount(BankAccount):
     def __init__(self, name, balance=0, overdraft_limit=0):
         super().__init__(name, balance)
