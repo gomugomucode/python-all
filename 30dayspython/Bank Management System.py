@@ -59,3 +59,26 @@ class SavingsAccount(BankAccount):
 
     def withdraw(self, amount):
         return super().withdraw(amount)
+
+class CurrentAccount(BankAccount):
+    def __init__(self, name, __balance , overdraft_limit):
+        super().__init__(name, __balance)
+        self.overdraft_limit = overdraft_limit
+
+    def deposit(self, amount):
+        return super().deposit(amount)
+    
+    def withdraw(self, amount):
+        if isinstance(amount, (int, float)):
+            raise ValueError("Amount must be a number")
+
+        if amount < 0 or amount > (self.__balance + self.overdraft_limit):
+            raise ValueError("Amount must be a number or amount is overdraft")
+        
+        if self.__balance < amount:
+
+            if amount < (self.__balance + self.overdraft_limit):
+                self.__balance = self.__balance + self.overdraft_limit - amount
+                return self.__balance
+
+        
