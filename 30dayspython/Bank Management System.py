@@ -1,96 +1,95 @@
 class BankAccount:
-    def __init__(self, name, __balance):
-
+    def __init__(self, name, balance=0):
         self.name = name
-        self.__balance = __balance
+        self.__balance = balance  # Encapsulated private attribute
 
-    @property
+    # Task 3: Standard getter method
     def get_balance(self):
         return self.__balance
 
-    @get_balance.setter
-    def get_balance(self, new_balance):
-        if not isinstance(new_balance, (int, float)):
-            raise ValueError("Balance must be a number")
-        self.__balance = new_balance
+    # Helper method for child classes to safely update the balance internally
+    def _set_balance(self, amount):
+        self.__balance = amount
 
+    # Task 2: Validate and execute deposits
     def deposit(self, amount):
         if not isinstance(amount, (int, float)):
-            raise ValueError("Amount must be a number")
-
-        if amount < 0:
-            raise ValueError("Amount must be a greater than zero ")
-
+            print("Error: Amount must be a number.")
+            return
+        if amount <= 0:
+            print("Error: Deposit amount must be greater than zero.")
+            return
+        
         self.__balance += amount
-        return self.__balance
 
+    # Task 2: Validate and execute standard withdrawals
     def withdraw(self, amount):
         if not isinstance(amount, (int, float)):
-            raise ValueError("Amount must be a number")
-
-        if amount < 0 or self.__balance < 0:
-            raise ValueError(
-                "Withdraw Amount must be a greater than zero  or balance is insufficient"
-            )
-
+            print("Error: Amount must be a number.")
+            return
+        if amount <= 0:
+            print("Error: Withdrawal amount must be greater than zero.")
+            return
+        if amount > self.__balance:
+            print("Not enough balance!")
+            return
+        
         self.__balance -= amount
-        return self.__balance
 
 
+# Task 4: Savings Account
 class SavingsAccount(BankAccount):
-    def __init__(self, name, __balance, interest):
-        super().__init__(name, __balance)
-        self.interest = interest
+    def __init__(self, name, balance=0):
+        # Pass the arguments to the parent constructor
+        super().__init__(name, balance)
 
     def add_interest(self, rate):
-        self.interest = (self.__balance * rate) / 100
-        return self.interest
+        if not isinstance(rate, (int, float)) or rate < 0:
+            print("Error: Invalid interest rate.")
+            return
+        # Calculate interest using the getter, then deposit it
+        interest_earned = (self.get_balance() * rate) / 100
+        self.deposit(interest_earned)
 
-    def deposit(self, amount):
-        return super().deposit(amount)
 
-    @property
-    def get_balance(self):
-        return super().get_balance
-
-    @get_balance.setter
-    def get_balance(self):
-        self.__balance += self.interest
-
-    def withdraw(self, amount):
-        return super().withdraw(amount)
-
+# Task 5: Current Account with Overdraft
 class CurrentAccount(BankAccount):
-    def __init__(self, name, __balance , overdraft_limit):
-        super().__init__(name, __balance)
+    def __init__(self, name, balance=0, overdraft_limit=0):
+        super().__init__(name, balance)
         self.overdraft_limit = overdraft_limit
 
-    def deposit(self, amount):
-        return super().deposit(amount)
-    
+    # Overriding the parent withdraw method
     def withdraw(self, amount):
-        if not not isinstance(amount, (int, float)):
-            raise ValueError("Amount must be a number")
-
-        if amount < 0 or amount > (self.__balance + self.overdraft_limit):
-            raise ValueError("Amount must be a number or amount is overdraft")
+        if not isinstance(amount, (int, float)):
+            print("Error: Amount must be a number.")
+            return
+        if amount <= 0:
+            print("Error: Withdrawal amount must be greater than zero.")
+            return
         
-        if self.__balance < amount:
-
-            if amount < (self.__balance + self.overdraft_limit):
-                self.__balance = self.__balance + self.overdraft_limit - amount
-                return self.__balance
-
+        # Calculate max allowable debt
+        available_total = self.get_balance() + self.overdraft_limit
         
-#  Savings account
+        if amount > available_total:
+            print("Overdraft limit reached!")
+            return
+        
+        # Safely update the balance using the parent's internal helper method
+        new_balance = self.get_balance() - amount
+        self._set_balance(new_balance)
+
+
+# --- SAMPLE RUN TEST ---
+
+print("--- Savings Account ---")
 s = SavingsAccount("Asha", 1000)
 s.deposit(500)
-s.add_interest(10) # 10% interest
-print(s.get_balance()) # 1650.0
-s.withdraw(5000) # Not enough balance!
+s.add_interest(10)      # 10% interest on 1500 is 150
+print(s.get_balance())  # Output: 1650.0
+s.withdraw(5000)        # Output: Not enough balance!
 
-# Current account with overdraft
+print("\n--- Current Account ---")
 c = CurrentAccount("Bibek", 200, overdraft_limit=500)
-c.withdraw(600) # allowed (goes to -400)
-print(c.get_balance()) # -400
-c.withdraw(200) # Overdraft limit reached!
+c.withdraw(600)         # Allowed (goes to -400)
+print(c.get_balance())  # Output: -400
+c.withdraw(200)         # Output: Overdraft limit reached!
