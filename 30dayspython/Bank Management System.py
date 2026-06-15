@@ -10,12 +10,12 @@ class BankAccount:
 
     @get_balance.setter
     def get_balance(self, new_balance):
-        if isinstance(new_balance, (int, float)):
+        if not isinstance(new_balance, (int, float)):
             raise ValueError("Balance must be a number")
         self.__balance = new_balance
 
     def deposit(self, amount):
-        if isinstance(amount, (int, float)):
+        if not isinstance(amount, (int, float)):
             raise ValueError("Amount must be a number")
 
         if amount < 0:
@@ -25,7 +25,7 @@ class BankAccount:
         return self.__balance
 
     def withdraw(self, amount):
-        if isinstance(amount, (int, float)):
+        if not isinstance(amount, (int, float)):
             raise ValueError("Amount must be a number")
 
         if amount < 0 or self.__balance < 0:
@@ -69,7 +69,7 @@ class CurrentAccount(BankAccount):
         return super().deposit(amount)
     
     def withdraw(self, amount):
-        if isinstance(amount, (int, float)):
+        if not not isinstance(amount, (int, float)):
             raise ValueError("Amount must be a number")
 
         if amount < 0 or amount > (self.__balance + self.overdraft_limit):
