@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class Employee(ABC):
+
     def __init__(self, name):
         self.name = name
 
@@ -10,10 +11,12 @@ class Employee(ABC):
         pass
 
     def pay_slip(self):
-        return f"{self.name} | Pay : Rs. {self.calculate_pay()}"
+        # type(self).__name__ automatically gets "FullTimeEmployee", "Contractor", etc.
+        return f"{self.name} | Pay : Rs. {self.calculate_pay()} | {type(self).__name__}"
 
 
 class FullTimeEmployee(Employee):
+
     def __init__(self, name, salary):
         super().__init__(name)
         self.salary = salary
@@ -24,15 +27,13 @@ class FullTimeEmployee(Employee):
     def __str__(self):
         return f"Full Time Employee: {self.name} | Salary: Rs. {self.salary}"
 
-    def pay_slip(self):
-        return super().pay_slip() + f" | Full Time Employee"
-
 
 class PartTimeEmployee(Employee):
-    def __init__(self, name, hours, rate):
+
+    def __init__(self, name, rate, hours):  
         super().__init__(name)
-        self.hours = hours
         self.rate = rate
+        self.hours = hours
 
     def calculate_pay(self):
         return self.hours * self.rate
@@ -40,38 +41,30 @@ class PartTimeEmployee(Employee):
     def __str__(self):
         return f"Part Time Employee: {self.name} | Hours: {self.hours} | Rate: Rs. {self.rate}"
 
-    def pay_slip(self):
-        return super().pay_slip() + f" | Part Time Employee"
-
 
 class Contractor(Employee):
-    def __init__(self, name, number_of_projects, project_fee):
+
+    def __init__(self, name, project_fee, number_of_projects):
         super().__init__(name)
-        self.number_of_projects = number_of_projects
         self.project_fee = project_fee
+        self.number_of_projects = number_of_projects
 
     def calculate_pay(self):
         return self.number_of_projects * self.project_fee
 
     def __str__(self):
         return f"Contractor: {self.name} | Projects: {self.number_of_projects} | Fee: Rs. {self.project_fee}"
-    
-    def pay_slip(self):
-        return super().pay_slip() + f" | Contractor"
 
 
 if __name__ == "__main__":
     staff = [
         FullTimeEmployee("Asha", 60000),
-        PartTimeEmployee("Bibek", 500, 80),
-        Contractor("Chen", 15000, 3),
+        PartTimeEmployee("Bibek", 500, 80),  
+        Contractor("Chen", 15000, 3),  
     ]
 
     for emp in staff:
         print(emp.pay_slip())
-    # Asha | Pay: Rs 60000
-    # Bibek | Pay: Rs 40000 (500 x 80)
-    # Chen | Pay: Rs 45000 (15000 x 3)
+
     total = sum(e.calculate_pay() for e in staff)
-    print("Total payroll:", total)  # 145000
-# Employee("Test") # TypeError: Can't instantiate abstract class Employee
+    print("Total payroll:", total)  # Output: 145000
