@@ -1,79 +1,183 @@
+# ==========================================
+# IPL Stats Web Scraper (2008 - 2026)
+# Beginner Friendly Version
+# ==========================================
+
+# Data manipulation
 import pandas as pd
 
+# Browser automation
 from selenium import webdriver
+
+# Used to locate elements
 from selenium.webdriver.common.by import By
+
+# Wait until elements appear
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+# Used for delays
+import time
 
-# -----------------------
-# Start Browser
-# -----------------------
+
+# ==========================================
+# Start Chrome Browser
+# ==========================================
+
 driver = webdriver.Chrome()
 
-# Dictionary to store every season
+# Dictionary to store all seasons
+# Example:
+# {
+#     2008 : dataframe,
+#     2009 : dataframe,
+#     ...
+# }
 all_seasons = {}
 
-# -----------------------
-# Loop through seasons
-# -----------------------
+# ==========================================
+# Loop Through IPL Seasons
+# ==========================================
+
 for season in range(2008, 2027):
 
-    print(f"Scraping {season}...")
+    try:
 
-    # Open season page
-    driver.get(
-        f"https://www.iplt20.com/stats/{season}"
-    )
+        print("=" * 50)
+        print(f"Scraping IPL Season {season}")
+        print("=" * 50)
 
-    # Wait until table appears
-    table = WebDriverWait(driver, 20).until(
-        EC.presence_of_element_located(
-            (
-                By.XPATH,
-                "/html/body/div[1]/div[2]/div[4]/div/section/div/div[3]/div[2]/div[2]/div/div[3]/div/div[1]/table/tbody"
+        # ----------------------------------
+        # Open Season Page
+        # ----------------------------------
+
+        url = f"https://www.iplt20.com/stats/{season}"
+
+        driver.get(url)
+
+        # Allow page to load
+        time.sleep(3)
+
+        # ----------------------------------
+        # Scroll To Bottom
+        # ----------------------------------
+        # Some websites load content while scrolling
+
+        driver.execute_script(
+            "window.scrollTo(0, document.body.scrollHeight);"
+        )
+
+        time.sleep(2)
+
+        # ----------------------------------
+        # Locate Table
+        # ----------------------------------
+
+        table = WebDriverWait(driver, 20).until(
+            EC.presence_of_element_located(
+                (
+                    By.XPATH,
+                    "/html/body/div[1]/div[2]/div[4]/div/section/div/div[3]/div[2]/div[2]/div/div[3]/div/div[1]/table/tbody"
+                )
             )
         )
-    )
 
-    # Get text from table
-    data = table.text
+        # ----------------------------------
+        # Extract Table Text
+        # ----------------------------------
 
-    # Split into rows
-    rows = data.split("\n")
+        data = table.text
 
-    # First row contains column names
-    columns = rows[0].split()
+        # ----------------------------------
+        # Split Into Rows
+        # ----------------------------------
 
-    # Remaining rows contain player data
-    player_rows = rows[1:]
+        rows = data.split("\n")
 
-    # Store rows in list
-    season_data = []
+        # First row usually contains headers
+        columns = rows[0].split()
 
-    for row in player_rows:
-        season_data.append(row)
+        # Actual player records
+        player_rows = rows[1:]
 
-    # Create DataFrame
-    df = pd.DataFrame(
-        season_data,
-        columns=["Raw_Data"]
-    )
+        # ----------------------------------
+        # Create DataFrame
+        # ----------------------------------
 
-    # Store DataFrame in dictionary
-    all_seasons[season] = df
+        season_data = []
 
-    print(
-        f"{season} completed"
-    )
+        for row in player_rows:
+            season_data.append(row)
 
-# Close browser
+        df = pd.DataFrame(
+            season_data,
+            columns=["Raw_Data"]
+        )
+
+        # ----------------------------------
+        # Store In Dictionary
+        # ----------------------------------
+
+        all_seasons[season] = df
+
+        print(
+            f"✅ {season} completed"
+        )
+
+        print(
+            f"Players collected: {len(df)}"
+        )
+
+        # Small delay before next season
+        time.sleep(2)
+
+    except Exception as e:
+
+        print(
+            f"❌ Failed on season {season}"
+        )
+
+        print(e)
+
+        # Continue to next season
+        continue
+
+
+# ==========================================
+# Close Browser
+# ==========================================
+
 driver.quit()
 
+# ==========================================
+# Example Usage
+# ==========================================
 
-all_seasons[2026].head()
+print("\nAvailable Seasons:")
 
+print(all_seasons.keys())
 
+print("\n2026 Data Preview:")
+
+print(all_seasons[2026].head())
+
+# ==========================================
+# Save All Data To Excel
+# ==========================================
+
+with pd.ExcelWriter(
+    "ipl_all_seasons.xlsx"
+) as writer:
+
+    for season, df in all_seasons.items():
+
+        df.to_excel(
+            writer,
+            sheet_name=str(season),
+            index=False
+        )
+
+print("\nExcel file saved successfully!")
 
 
 
