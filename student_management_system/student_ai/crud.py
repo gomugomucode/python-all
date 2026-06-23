@@ -77,3 +77,24 @@ def delete_student(student_id):
     conn.close()
 
     print("Student deleted successfully")
+
+def search_student(name):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT *
+        FROM students
+        WHERE name ILIKE %s
+        """,
+        (f"%{name}%",)
+    )
+
+    result = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return result

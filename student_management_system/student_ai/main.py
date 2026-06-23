@@ -20,3 +20,7 @@
 #     1,
 #     "anupam_new@gmail.com"
 # )
+
+from crud import delete_student
+
+delete_student(4)
