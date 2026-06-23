@@ -140,3 +140,23 @@ def get_attendance(student_id):
 
     return result
 
+def update_attendance(student_id, new_attendance_percent):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        UPDATE attendance
+        SET attendance_percent = %s
+        WHERE student_id = %s
+        """,
+        (new_attendance_percent, student_id)
+    )
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    print("Attendance updated successfully")
