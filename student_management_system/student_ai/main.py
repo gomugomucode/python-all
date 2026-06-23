@@ -14,9 +14,9 @@
 # for student in students:
 #     print(student)
 
-from crud import update_student_email
+# from crud import update_student_email
 
-update_student_email(
-    1,
-    "anupam_new@gmail.com"
-)
+# update_student_email(
+#     1,
+#     "anupam_new@gmail.com"
+# )

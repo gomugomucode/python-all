@@ -56,3 +56,24 @@ def update_student_email(student_id, new_email):
     conn.close()
 
     print("Student updated successfully")
+
+
+def delete_student(student_id):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        DELETE FROM students
+        WHERE id = %s
+        """,
+        (student_id,)
+    )
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    print("Student deleted successfully")
