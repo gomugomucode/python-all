@@ -7,9 +7,16 @@
 #     "sita@gmail.com"
 # )
 
-from crud import get_students
+# from crud import get_students
 
-students = get_students()
+# students = get_students()
 
-for student in students:
-    print(student)
+# for student in students:
+#     print(student)
+
+from crud import update_student_email
+
+update_student_email(
+    1,
+    "anupam_new@gmail.com"
+)
