@@ -160,3 +160,23 @@ def update_attendance(student_id, new_attendance_percent):
     conn.close()
 
     print("Attendance updated successfully")
+
+def add_marks(student_id, subject, marks):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        INSERT INTO marks(student_id, subject, marks)
+        VALUES (%s,%s,%s)
+        """,
+        (student_id, subject, marks)
+    )
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    print("Marks added successfully")
