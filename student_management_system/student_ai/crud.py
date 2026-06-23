@@ -248,3 +248,27 @@ def students_above_marks(min_marks):
     conn.close()
 
     return result
+
+def highest_attendance():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT s.name,
+               a.attendance_percent
+        FROM students s
+        JOIN attendance a
+        ON s.id = a.student_id
+        ORDER BY a.attendance_percent DESC
+        LIMIT 1
+        """
+    )
+
+    result = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    return result

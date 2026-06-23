@@ -58,10 +58,23 @@
 # )
 
 
-from crud import add_marks
+# from crud import add_marks
 
-add_marks(
-    5,
-    "Python",
-    90
-)
+# add_marks(
+#     5,
+#     "Python",
+#     90
+# )
+
+
+# from crud import students_above_marks
+
+# results = students_above_marks(80)
+
+# for row in results:
+#     print(row)
+
+
+from crud import highest_attendance
+
+print(highest_attendance())
