@@ -119,3 +119,24 @@ def add_attendance(student_id, attendance_percent):
 
     print("Attendance added successfully")
 
+def get_attendance(student_id):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT *
+        FROM attendance
+        WHERE student_id = %s
+        """,
+        (student_id,)
+    )
+
+    result = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return result
+
