@@ -1,7 +1,3 @@
-
-
-
-
 # from crud import add_student
 # add_student(
 #     "Sita",
@@ -75,6 +71,6 @@
 #     print(row)
 
 
-from crud import highest_attendance
+from student_management_system.python_backend.crud import highest_attendance
 
 print(highest_attendance())
