@@ -20,3 +20,17 @@ def add_student(name, age, student_class, email):
 
     print("Student added successfully")
 
+
+def get_students():
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM students")
+
+    students = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return students
