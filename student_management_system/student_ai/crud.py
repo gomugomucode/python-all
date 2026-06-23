@@ -180,3 +180,46 @@ def add_marks(student_id, subject, marks):
     conn.close()
 
     print("Marks added successfully")
+
+def get_marks(student_id):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT *
+        FROM marks
+        WHERE student_id = %s
+        """,
+        (student_id,)
+    )
+
+    result = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return result
+
+def update_marks(student_id, subject, new_marks):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        UPDATE marks
+        SET marks = %s
+        WHERE student_id = %s
+        AND subject = %s
+        """,
+        (new_marks, student_id, subject)
+    )
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    print("Marks updated successfully")
