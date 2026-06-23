@@ -98,3 +98,24 @@ def search_student(name):
     conn.close()
 
     return result
+
+def add_attendance(student_id, attendance_percent):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        INSERT INTO attendance(student_id, attendance_percent)
+        VALUES (%s,%s)
+        """,
+        (student_id, attendance_percent)
+    )
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    print("Attendance added successfully")
+

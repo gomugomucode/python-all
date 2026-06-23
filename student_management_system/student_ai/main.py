@@ -21,6 +21,14 @@
 #     "anupam_new@gmail.com"
 # )
 
-from crud import delete_student
+# from crud import delete_student
 
-delete_student(4)
+# delete_student(4)
+
+
+from crud import search_student
+
+students = search_student("anu")
+
+for student in students:
+    print(student)
