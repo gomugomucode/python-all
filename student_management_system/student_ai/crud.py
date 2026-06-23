@@ -34,3 +34,25 @@ def get_students():
     conn.close()
 
     return students
+
+
+def update_student_email(student_id, new_email):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        UPDATE students
+        SET email = %s
+        WHERE id = %s
+        """,
+        (new_email, student_id)
+    )
+
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    print("Student updated successfully")
