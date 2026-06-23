@@ -45,9 +45,9 @@
 #     attendance_percent=95
 # )
 
-from crud import get_attendance
+# from crud import get_attendance
 
-get_attendance(1)
+# get_attendance(1)
 
 
 # from crud import update_attendance
@@ -56,3 +56,12 @@ get_attendance(1)
 #     student_id=1,
 #     new_attendance_percent=98
 # )
+
+
+from crud import add_marks
+
+add_marks(
+    5,
+    "Python",
+    90
+)

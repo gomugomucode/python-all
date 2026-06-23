@@ -223,3 +223,28 @@ def update_marks(student_id, subject, new_marks):
     conn.close()
 
     print("Marks updated successfully")
+
+def students_above_marks(min_marks):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT s.name,
+               m.subject,
+               m.marks
+        FROM students s
+        JOIN marks m
+        ON s.id = m.student_id
+        WHERE m.marks > %s
+        """,
+        (min_marks,)
+    )
+
+    result = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return result
