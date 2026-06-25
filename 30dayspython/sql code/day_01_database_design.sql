@@ -1,8 +1,12 @@
+-- 1. Safely drop only the new tables if you need to rerun this file to fix a typo later
+DROP TABLE IF EXISTS banking.loan_payments CASCADE;
+DROP TABLE IF EXISTS banking.loans CASCADE;
+DROP TABLE IF EXISTS banking.employees CASCADE;
+
 
 -- =====================================
--- TABLE: banking.employees
+-- TABLE: banking.employees (Connects automatically to your existing banking.branches)
 -- =====================================
-
 CREATE TABLE banking.employees (
     employee_id INT PRIMARY KEY,
     branch_id INT NOT NULL,
@@ -18,29 +22,23 @@ CREATE TABLE banking.employees (
         REFERENCES banking.branches(branch_id)
 );
 
--- =====================================
--- TABLE: banking.loans
--- =====================================
 
+-- =====================================
+-- TABLE: banking.loans (Connects automatically to your existing customers and branches)
+-- =====================================
 CREATE TABLE banking.loans (
     loan_id INT PRIMARY KEY,
     customer_id INT NOT NULL,
     branch_id INT NOT NULL,
-
     loan_type VARCHAR(20) NOT NULL
         CHECK (loan_type IN ('HOME', 'AUTO', 'PERSONAL', 'BUSINESS')),
-
     loan_amount NUMERIC(14,2) NOT NULL
         CHECK (loan_amount > 0),
-
     interest_rate NUMERIC(5,2) NOT NULL
         CHECK (interest_rate BETWEEN 0 AND 30),
-
     start_date DATE NOT NULL,
-
     end_date DATE NOT NULL
         CHECK (end_date > start_date),
-
     loan_status VARCHAR(20) DEFAULT 'ACTIVE'
         CHECK (loan_status IN ('ACTIVE', 'CLOSED', 'DEFAULTED')),
 
@@ -53,42 +51,28 @@ CREATE TABLE banking.loans (
         REFERENCES banking.branches(branch_id)
 );
 
-  -- =====================================
--- TABLE: banking.loan_payments
--- =====================================
 
+-- =====================================
+-- TABLE: banking.loan_payments (Connects automatically to the loans table above)
+-- =====================================
 CREATE TABLE banking.loan_payments (
     payment_id INT PRIMARY KEY,
-
     loan_id INT NOT NULL,
-
     payment_amount NUMERIC(12,2) NOT NULL
         CHECK (payment_amount > 0),
-
     payment_date DATE NOT NULL,
-
     payment_method VARCHAR(30) NOT NULL
-        CHECK (
-            payment_method IN (
-                'CASH',
-                'BANK_TRANSFER',
-                'CHEQUE',
-                'ONLINE'
-            )
-        ),
-
+        CHECK (payment_method IN ('CASH', 'BANK_TRANSFER', 'CHEQUE', 'ONLINE')),
     payment_status VARCHAR(20) DEFAULT 'COMPLETED'
-        CHECK (
-            payment_status IN (
-                'COMPLETED',
-                'PENDING',
-                'FAILED'
-            )
-        ),
+        CHECK (payment_status IN ('COMPLETED', 'PENDING', 'FAILED')),
 
     CONSTRAINT fk_payment_loan
         FOREIGN KEY (loan_id)
         REFERENCES banking.loans(loan_id)
 );
 
+
+-- 3. Verify that your new tables exist alongside your old data
+SELECT * FROM banking.employees;
 SELECT * FROM banking.loans;
+SELECT * FROM banking.loan_payments;
