@@ -121,3 +121,124 @@ branch_id,
 job_title;
 
 
+
+-- ==========================================
+-- TASK 5 : Group Payments
+-- ==========================================
+
+SELECT
+payment_status,
+COUNT(*) AS payment_count,
+SUM(payment_amount) AS total_payment_amount,
+ROUND(AVG(payment_amount),2) AS average_payment_amount
+FROM banking.loan_payments
+GROUP BY payment_status;
+
+
+
+-- ==========================================
+-- TASK 6 : HAVING
+-- ==========================================
+
+-- 1. Loan types with total loan amount above 500000
+SELECT
+loan_type,
+SUM(loan_amount) AS total_loan_amount
+FROM banking.loans
+GROUP BY loan_type
+HAVING SUM(loan_amount) > 500000;
+
+
+-- 2. Branches with at least two employees
+SELECT
+branch_id,
+COUNT(*) AS employee_count
+FROM banking.employees
+GROUP BY branch_id
+HAVING COUNT(*) >=2;
+
+
+-- 3. Customers with total loan amount above 700000
+SELECT
+customer_id,
+SUM(loan_amount) AS total_loan_amount
+FROM banking.loans
+GROUP BY customer_id
+HAVING SUM(loan_amount) >700000;
+
+
+-- 4. Loans with at least two payments
+SELECT
+loan_id,
+COUNT(*) AS payment_count
+FROM banking.loan_payments
+GROUP BY loan_id
+HAVING COUNT(*)>=2;
+
+
+-- 5. Payment methods used at least three times
+SELECT
+payment_method,
+COUNT(*) AS total_usage
+FROM banking.loan_payments
+GROUP BY payment_method
+HAVING COUNT(*)>=3;
+
+
+
+-- ==========================================
+-- TASK 7 : WHERE and HAVING Together
+-- ==========================================
+
+SELECT
+loan_type,
+SUM(loan_amount) AS total_loan_amount,
+ROUND(AVG(loan_amount),2) AS average_loan_amount
+FROM banking.loans
+WHERE start_date>='2025-01-01'
+GROUP BY loan_type
+HAVING COUNT(*)>=2;
+
+
+
+-- ==========================================
+-- TASK 8 : Branch Summary
+-- ==========================================
+
+SELECT
+b.branch_id,
+b.branch_name,
+
+COALESCE(e.employee_count,0) AS employee_count,
+
+COALESCE(l.loan_count,0) AS loan_count,
+
+COALESCE(l.total_loan_amount,0) AS total_loan_amount,
+
+COALESCE(l.average_loan_amount,0) AS average_loan_amount
+
+FROM banking.branches AS b
+
+LEFT JOIN
+(
+SELECT
+branch_id,
+COUNT(*) AS employee_count
+FROM banking.employees
+GROUP BY branch_id
+) AS e
+ON b.branch_id=e.branch_id
+
+LEFT JOIN
+(
+SELECT
+branch_id,
+COUNT(*) AS loan_count,
+SUM(loan_amount) AS total_loan_amount,
+ROUND(AVG(loan_amount),2) AS average_loan_amount
+FROM banking.loans
+GROUP BY branch_id
+) AS l
+ON b.branch_id=l.branch_id
+
+ORDER BY b.branch_id;
