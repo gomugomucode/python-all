@@ -70,3 +70,67 @@ SELECT DISTINCT job_title
 FROM banking.employees;
 
 
+
+-- ==========================================
+-- TASK 2 : LOAN QUERIES
+-- ==========================================
+
+-- 1. Loans greater than 500000
+SELECT *
+FROM banking.loans
+WHERE loan_amount > 500000;
+
+
+-- 2. Loans started during 2025
+SELECT *
+FROM banking.loans
+WHERE start_date BETWEEN
+'2025-01-01'
+AND
+'2025-12-31';
+
+
+-- 3. Loan status not CLOSED
+SELECT *
+FROM banking.loans
+WHERE loan_status <> 'CLOSED';
+
+
+-- 4. Sort by status then amount descending
+SELECT *
+FROM banking.loans
+ORDER BY loan_status,
+loan_amount DESC;
+
+
+-- 5. First five loans
+SELECT *
+FROM banking.loans
+LIMIT 5;
+
+
+-- 6. Second page
+-- (5 rows per page)
+
+SELECT *
+FROM banking.loans
+LIMIT 5
+OFFSET 5;
+
+
+-- 7. Interest rate between 8 and 15
+SELECT *
+FROM banking.loans
+WHERE interest_rate
+BETWEEN 8 AND 15;
+
+
+-- 8. Loan type HOME AUTO BUSINESS
+SELECT *
+FROM banking.loans
+WHERE loan_type IN
+('HOME',
+ 'AUTO',
+ 'BUSINESS');
+
+
