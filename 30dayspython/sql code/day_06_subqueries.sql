@@ -205,3 +205,162 @@ AND EXISTS
     WHERE l.customer_id=c.customer_id
 );
 
+
+-- ==========================================
+-- TASK 6 : NOT EXISTS
+-- ==========================================
+
+-- 1. Customers without loans
+
+SELECT *
+FROM banking.customers c
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM banking.loans l
+    WHERE l.customer_id=c.customer_id
+);
+
+-- 2. Loans without payments
+
+SELECT *
+FROM banking.loans l
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM banking.loan_payments p
+    WHERE p.loan_id=l.loan_id
+);
+
+-- 3. Loans without completed payments
+
+SELECT *
+FROM banking.loans l
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM banking.loan_payments p
+    WHERE p.loan_id=l.loan_id
+    AND p.payment_status='COMPLETED'
+);
+
+-- 4. Branches without employees
+
+SELECT *
+FROM banking.branches b
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM banking.employees e
+    WHERE e.branch_id=b.branch_id
+);
+
+-- 5. Customers having accounts but no loans
+
+SELECT *
+FROM banking.customers c
+
+WHERE EXISTS
+(
+    SELECT 1
+    FROM banking.accounts a
+    WHERE a.customer_id=c.customer_id
+)
+
+AND NOT EXISTS
+(
+    SELECT 1
+    FROM banking.loans l
+    WHERE l.customer_id=c.customer_id
+);
+
+
+-- ==========================================
+-- TASK 7 : Correlated Subqueries
+-- ==========================================
+
+-- 1. Employees earning above branch average
+
+SELECT *
+FROM banking.employees e
+
+WHERE salary >
+(
+    SELECT AVG(salary)
+    FROM banking.employees
+    WHERE branch_id=e.branch_id
+);
+
+-- 2. Loans above average of same loan type
+
+SELECT *
+FROM banking.loans l
+
+WHERE loan_amount >
+(
+    SELECT AVG(loan_amount)
+    FROM banking.loans
+    WHERE loan_type=l.loan_type
+);
+
+-- 3. Payments above average payment of same loan
+
+SELECT *
+FROM banking.loan_payments p
+
+WHERE payment_amount >
+(
+    SELECT AVG(payment_amount)
+    FROM banking.loan_payments
+    WHERE loan_id=p.loan_id
+);
+
+-- 4. Every customer with number of loans
+
+SELECT
+c.customer_id,
+c.full_name,
+
+(
+SELECT COUNT(*)
+FROM banking.loans l
+WHERE l.customer_id=c.customer_id
+)
+
+AS total_loans
+
+FROM banking.customers c;
+
+
+-- 5. Every branch with number of employees
+
+SELECT
+b.branch_id,
+b.branch_name,
+
+(
+SELECT COUNT(*)
+FROM banking.employees e
+WHERE e.branch_id=b.branch_id
+)
+
+AS total_employees
+
+FROM banking.branches b;
+
+
+-- ==========================================
+-- TASK 8 : Explanation Comments
+-- ==========================================
+
+-- Scalar Subquery:
+-- Returns only one value (one row and one column).
+
+-- Correlated Subquery:
+-- Uses a value from the outer query and executes once for every outer row.
+
+-- EXISTS:
+-- Useful when checking whether at least one related row exists.
+
+-- NOT EXISTS:
+-- Safer than NOT IN because it handles NULL values correctly.
