@@ -173,3 +173,103 @@ SELECT *
 FROM banking.loan_payments
 ORDER BY payment_amount DESC
 LIMIT 5;
+
+
+
+
+
+-- ==========================================
+-- TASK 4
+-- Arithmetic and Aliases
+-- ==========================================
+
+SELECT
+loan_id,
+loan_amount,
+interest_rate,
+
+ROUND(
+loan_amount * interest_rate / 100,
+2
+)
+AS annual_interest_amount
+
+FROM banking.loans;
+
+
+
+-- ==========================================
+-- TASK 5
+-- CASE EXPRESSIONS
+-- ==========================================
+
+-- Employee salary classification
+
+SELECT
+employee_id,
+full_name,
+salary,
+
+CASE
+
+WHEN salary >=100000
+THEN 'HIGH'
+
+WHEN salary >=60000
+THEN 'MEDIUM'
+
+ELSE 'LOW'
+
+END
+AS salary_classification
+
+FROM banking.employees;
+
+
+
+-- Loan size classification
+
+SELECT
+
+loan_id,
+loan_amount,
+
+CASE
+
+WHEN loan_amount >=1000000
+THEN 'LARGE'
+
+WHEN loan_amount >=300000
+THEN 'MEDIUM'
+
+ELSE 'SMALL'
+
+END
+AS loan_size
+
+FROM banking.loans;
+
+
+
+-- Payment status description
+
+SELECT
+
+payment_id,
+payment_status,
+
+CASE
+
+WHEN payment_status='COMPLETED'
+THEN 'Successful Payment'
+
+WHEN payment_status='PENDING'
+THEN 'Awaiting Confirmation'
+
+WHEN payment_status='FAILED'
+THEN 'Unsuccessful Payment'
+
+END
+AS payment_description
+
+FROM banking.loan_payments;
