@@ -134,3 +134,42 @@ WHERE loan_type IN
  'BUSINESS');
 
 
+
+-- ==========================================
+-- TASK 3 : PAYMENT QUERIES
+-- ==========================================
+
+-- 1. Pending or failed payments
+SELECT *
+FROM banking.loan_payments
+WHERE payment_status IN
+('PENDING',
+ 'FAILED');
+
+
+-- 2. Payments using ONLINE
+SELECT *
+FROM banking.loan_payments
+WHERE payment_method = 'ONLINE';
+
+
+-- 3. Payments between two dates
+SELECT *
+FROM banking.loan_payments
+WHERE payment_date BETWEEN
+'2025-05-01'
+AND
+'2025-08-31';
+
+
+-- 4. Payment method is not null
+SELECT *
+FROM banking.loan_payments
+WHERE payment_method IS NOT NULL;
+
+
+-- 5. Largest five payments
+SELECT *
+FROM banking.loan_payments
+ORDER BY payment_amount DESC
+LIMIT 5;
