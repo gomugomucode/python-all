@@ -1,6 +1,6 @@
-CREATE DATABASE banking_db;
+CREATE DATABASE bankingdb;
 
-\c banking_db;
+\c bankingdb;
 
 
 CREATE TABLE customer (
