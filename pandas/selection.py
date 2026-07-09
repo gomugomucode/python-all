@@ -25,4 +25,12 @@ df = pd.read_csv('data.csv')
 
 # selecting by rows
 
-print(df.loc[0])
+# print(df.loc[0])
+
+# we can set teh index of file  by column name while reading the file using index_col parameter
+df = pd.read_csv('data.csv' , index_col = "Name")
+
+# # print(df.loc["Bulbasaur"])
+# print(df.loc["Bulbasaur" , "Height"])
+# print(df.loc["Pikachu" ,["Height" , "Weight"]])
+
