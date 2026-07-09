@@ -34,3 +34,11 @@ df = pd.read_csv('data.csv' , index_col = "Name")
 # print(df.loc["Bulbasaur" , "Height"])
 # print(df.loc["Pikachu" ,["Height" , "Weight"]])
 
+# we can also do slicing by using the index of the rows
+# df= df.loc["Bulbasaur":"Pikachu" , ["Height" , "Weight"]]
+# print(df)
+
+# we can use iloc to select rows and columns by index position
+df= df.iloc[0:5  , 0:]
+# df= df.iloc[0:5 :2 , 0:]
+print(df)
