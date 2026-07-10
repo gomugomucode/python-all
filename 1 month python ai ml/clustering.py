@@ -41,14 +41,14 @@
 
 # spilitting the dataset
 
-from sklearn.linear_model import LogisticRegression
+# from sklearn.linear_model import LogisticRegression
 
-X_train = [[0, 0], [1, 1]]
-y_train = [0, 1]
+# X_train = [[0, 0], [1, 1]]
+# y_train = [0, 1]
 
-model = LogisticRegression().fit(X_train, y_train)
-# print(model.predict([[2, 2]]))
+# model = LogisticRegression().fit(X_train, y_train)
+# # print(model.predict([[2, 2]]))
 
-X_test = [[3 ,3]]
-prediction = model.predict(X_test)
-print(prediction)
+# X_test = [[3 ,3]]
+# prediction = model.predict(X_test)
+# print(prediction)
