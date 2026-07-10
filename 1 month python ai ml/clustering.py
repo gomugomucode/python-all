@@ -1,17 +1,17 @@
-from sklearn.cluster import KMeans
-import numpy as np
-import matplotlib.pyplot as plt
+# from sklearn.cluster import KMeans
+# import numpy as np
+# import matplotlib.pyplot as plt
 
-X = np.array([[1, 2],
-              [1, 4],   
-              [1, 0],
-                  [4, 2],
-                  [4, 4],
-                  [4, 0]])
+# X = np.array([[1, 2],
+#               [1, 4],   
+#               [1, 0],
+#                   [4, 2],
+#                   [4, 4],
+#                   [4, 0]])
 
-model = KMeans(n_clusters=2, random_state=0)
-model.fit(X)    
-print(model.labels_)
+# model = KMeans(n_clusters=2, random_state=0)
+# model.fit(X)    
+# print(model.labels_)
 
 
 
@@ -36,3 +36,15 @@ print(model.labels_)
 # model = DecisionTreeRegressor().fit(X, y)
 # model.fit(X, y)
 # print(model.predict([[1 ]]))
+
+
+
+# spilitting the dataset
+
+from sklearn.linear_model import LogisticRegression
+
+X_train = [[0, 0], [1, 1]]
+y_train = [0, 1]
+
+model = LogisticRegression().fit(X_train, y_train)
+print(model.predict([[2, 2]]))
