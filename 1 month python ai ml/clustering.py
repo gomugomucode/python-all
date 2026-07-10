@@ -47,4 +47,8 @@ X_train = [[0, 0], [1, 1]]
 y_train = [0, 1]
 
 model = LogisticRegression().fit(X_train, y_train)
-print(model.predict([[2, 2]]))
+# print(model.predict([[2, 2]]))
+
+X_test = [[3 ,3]]
+prediction = model.predict(X_test)
+print(prediction)
