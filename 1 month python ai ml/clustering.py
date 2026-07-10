@@ -27,3 +27,12 @@ model.fit(X, y)
 print(model.predict([[1]]))
 
 
+
+# # overfitting
+
+# from sklearn.tree import DecisionTreeRegressor
+# X = np.array([[1, 1], [1, 2], [2, 2], [2, 3]])
+# y = np.array([1, 1, 2, 2])
+# model = DecisionTreeRegressor().fit(X, y)
+# model.fit(X, y)
+# print(model.predict([[1]]))
