@@ -49,6 +49,11 @@ df = pd.read_csv('data.csv'  )
 # Strip out all the messy leading/trailing spaces from the column headers
 df.columns = df.columns.str.strip()
 
+# CLEAN THE DATA: Strip spaces from the type columns
+df['Type1'] = df['Type1'].str.strip()
+df['Type2'] = df['Type2'].str.strip()
+
+
 ff_pokemon = df[(df['Type1'] == 'Fire') & (df['Type2'] == 'Flying')]
 
 print("Fire and Flying Type Pokemon:")
