@@ -73,4 +73,67 @@
 
 
 
+import matplotlib
 
+matplotlib.use("Agg")  # Prevents Tkinter popup crashes
+import matplotlib.pyplot as plt
+import nltk
+import pandas as pd
+import seaborn as sns
+
+# Ensure tokenizers are downloaded
+nltk.download("punkt")
+nltk.download("punkt_tab")
+
+# 1. Load the data properly
+df = pd.read_csv("spam.csv", encoding="latin-1")
+
+# 2. Slice out empty trailing columns
+df = df.iloc[:, :2]
+
+# 3. Rename columns properly
+df.columns = ["target", "text"]
+
+# 4. Clean spacing strings
+df["target"] = df["target"].str.strip()
+
+# 5. Convert target to numeric for heatmap correlation (Ham = 0, Spam = 1)
+df["target_numeric"] = df["target"].map({"ham": 0, "spam": 1})
+
+# 6. Extract Text Features using NLTK
+df["num_characters"] = df["text"].apply(len)
+df["num_words"] = df["text"].apply(lambda x: len(nltk.word_tokenize(x)))
+df["num_sentences"] = df["text"].apply(lambda x: len(nltk.sent_tokenize(x)))
+
+# 7. Calculate the correlation matrix
+# We only select the numeric columns for correlation
+numerical_df = df[
+    ["target_numeric", "num_characters", "num_words", "num_sentences"]
+]
+correlation_matrix = numerical_df.corr()
+
+# 8. Generate and save the Heatmap
+plt.figure(figsize=(8, 6))
+sns.heatmap(
+    correlation_matrix,
+    annot=True,  # Shows the correlation numbers inside the squares
+    cmap="coolwarm",  # Red for positive correlation, blue for negative
+    vmin=-1,  # Minimum value for correlation scale
+    vmax=1,  # Maximum value for correlation scale
+    linewidths=0.5,
+)
+plt.title("Correlation Heatmap: Text Features vs Message Type")
+plt.tight_layout()
+
+# Save heatmap directly to your folder
+plt.savefig("spam_heatmap.png")
+print("Success! Heatmap saved as 'spam_heatmap.png'")
+print("\nCorrelation Matrix Values:")
+print(correlation_matrix)
+
+
+
+
+
+
+# Data processing and feature extraction are crucial steps in preparing your dataset for machine learning models. In this code, we have performed the following steps: 
