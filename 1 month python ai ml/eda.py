@@ -166,6 +166,50 @@
 
 
 
+# import string
+# import nltk
+# from nltk.corpus import stopwords
+# from nltk.stem import PorterStemmer
+ 
+# # DOWNLOAD THE REQUIRED DATASETS ---
+# nltk.download("punkt")
+# nltk.download("punkt_tab")
+# nltk.download("stopwords")
+ 
+ 
+# # Initialize the stemmer
+# ps = PorterStemmer()
+ 
+ 
+# def transform_text(text):
+#     # 1. Lowercase
+#     text = text.lower()
+ 
+#     # 2. Tokenize
+#     tokens = nltk.word_tokenize(text)
+ 
+#     # 3. Keep only alphanumeric tokens (removes punctuation)
+#     tokens = [word for word in tokens if word.isalnum()]
+ 
+#     # 4. Remove Stop Words
+#     stop_words = set(stopwords.words("english"))
+#     tokens = [word for word in tokens if word not in stop_words]
+ 
+#     # 5. Apply Stemming
+#     tokens = [ps.stem(word) for word in tokens]
+ 
+#     # 6. Join back with space
+#     return " ".join(tokens)
+ 
+ 
+ 
+# print(transform_text("I loved the loving text messages you were sending!"))
+ 
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
 import string
 import nltk
 from nltk.corpus import stopwords
@@ -195,13 +239,57 @@ def transform_text(text):
     stop_words = set(stopwords.words("english"))
     tokens = [word for word in tokens if word not in stop_words]
 
-    # 5. Apply Stemming (The step the photo tried to do)
+    # 5. Apply Stemming
     tokens = [ps.stem(word) for word in tokens]
 
     # 6. Join back with space
     return " ".join(tokens)
 
 
-# Example test:
+
 print(transform_text("I loved the loving text messages you were sending!"))
-# Output: "love love text messag send"
+
+
+# Ensure tokenizers are downloaded
+nltk.download('punkt')
+nltk.download('punkt_tab')
+
+# 1. Load the data properly
+df = pd.read_csv("spam.csv", encoding="latin-1")
+
+# 2. Slice out empty trailing columns
+df = df.iloc[:, :2]
+
+# 3. Rename columns properly
+df.columns = ["target", "text"]
+
+# 4. Clean spacing strings
+df["target"] = df["target"].str.strip()
+
+# 5. Extract Text Features (Character and word count)
+df["num_characters"] = df["text"].apply(len)
+df["num_words"] = df["text"].apply(lambda x: len(nltk.word_tokenize(x)))
+
+
+df["transformed_text"] = df["text"].apply(transform_text)
+df.head()  # Display the first few rows of the DataFrame to verify the transformation
+
+from wordcloud import WordCloud
+
+wc = WordCloud(
+    width=500, height=500, min_font_size=10, background_color="white"
+)
+
+# Generate the word cloud for spam messages
+spam_wc = wc.generate(
+    df[df["target"] == "spam"]["transformed_text"].str.cat(sep=" ")
+)
+
+# Plot and save the figure
+plt.figure(figsize=(10, 8))
+plt.imshow(spam_wc, interpolation="bilinear")
+plt.axis("off")
+
+# Save it to your folder
+plt.savefig("spam_wordcloud.png")
+print("Success! WordCloud saved as 'spam_wordcloud.png'")
