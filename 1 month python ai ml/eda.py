@@ -73,63 +73,63 @@
 
 
 
-import matplotlib
+# import matplotlib
 
-matplotlib.use("Agg")  # Prevents Tkinter popup crashes
-import matplotlib.pyplot as plt
-import nltk
-import pandas as pd
-import seaborn as sns
+# matplotlib.use("Agg")  # Prevents Tkinter popup crashes
+# import matplotlib.pyplot as plt
+# import nltk
+# import pandas as pd
+# import seaborn as sns
 
-# Ensure tokenizers are downloaded
-nltk.download("punkt")
-nltk.download("punkt_tab")
+# # Ensure tokenizers are downloaded
+# nltk.download("punkt")
+# nltk.download("punkt_tab")
 
-# 1. Load the data properly
-df = pd.read_csv("spam.csv", encoding="latin-1")
+# # 1. Load the data properly
+# df = pd.read_csv("spam.csv", encoding="latin-1")
 
-# 2. Slice out empty trailing columns
-df = df.iloc[:, :2]
+# # 2. Slice out empty trailing columns
+# df = df.iloc[:, :2]
 
-# 3. Rename columns properly
-df.columns = ["target", "text"]
+# # 3. Rename columns properly
+# df.columns = ["target", "text"]
 
-# 4. Clean spacing strings
-df["target"] = df["target"].str.strip()
+# # 4. Clean spacing strings
+# df["target"] = df["target"].str.strip()
 
-# 5. Convert target to numeric for heatmap correlation (Ham = 0, Spam = 1)
-df["target_numeric"] = df["target"].map({"ham": 0, "spam": 1})
+# # 5. Convert target to numeric for heatmap correlation (Ham = 0, Spam = 1)
+# df["target_numeric"] = df["target"].map({"ham": 0, "spam": 1})
 
-# 6. Extract Text Features using NLTK
-df["num_characters"] = df["text"].apply(len)
-df["num_words"] = df["text"].apply(lambda x: len(nltk.word_tokenize(x)))
-df["num_sentences"] = df["text"].apply(lambda x: len(nltk.sent_tokenize(x)))
+# # 6. Extract Text Features using NLTK
+# df["num_characters"] = df["text"].apply(len)
+# df["num_words"] = df["text"].apply(lambda x: len(nltk.word_tokenize(x)))
+# df["num_sentences"] = df["text"].apply(lambda x: len(nltk.sent_tokenize(x)))
 
-# 7. Calculate the correlation matrix
-# We only select the numeric columns for correlation
-numerical_df = df[
-    ["target_numeric", "num_characters", "num_words", "num_sentences"]
-]
-correlation_matrix = numerical_df.corr()
+# # 7. Calculate the correlation matrix
+# # We only select the numeric columns for correlation
+# numerical_df = df[
+#     ["target_numeric", "num_characters", "num_words", "num_sentences"]
+# ]
+# correlation_matrix = numerical_df.corr()
 
-# 8. Generate and save the Heatmap
-plt.figure(figsize=(8, 6))
-sns.heatmap(
-    correlation_matrix,
-    annot=True,  # Shows the correlation numbers inside the squares
-    cmap="coolwarm",  # Red for positive correlation, blue for negative
-    vmin=-1,  # Minimum value for correlation scale
-    vmax=1,  # Maximum value for correlation scale
-    linewidths=0.5,
-)
-plt.title("Correlation Heatmap: Text Features vs Message Type")
-plt.tight_layout()
+# # 8. Generate and save the Heatmap
+# plt.figure(figsize=(8, 6))
+# sns.heatmap(
+#     correlation_matrix,
+#     annot=True,  # Shows the correlation numbers inside the squares
+#     cmap="coolwarm",  # Red for positive correlation, blue for negative
+#     vmin=-1,  # Minimum value for correlation scale
+#     vmax=1,  # Maximum value for correlation scale
+#     linewidths=0.5,
+# )
+# plt.title("Correlation Heatmap: Text Features vs Message Type")
+# plt.tight_layout()
 
-# Save heatmap directly to your folder
-plt.savefig("spam_heatmap.png")
-print("Success! Heatmap saved as 'spam_heatmap.png'")
-print("\nCorrelation Matrix Values:")
-print(correlation_matrix)
+# # Save heatmap directly to your folder
+# plt.savefig("spam_heatmap.png")
+# print("Success! Heatmap saved as 'spam_heatmap.png'")
+# print("\nCorrelation Matrix Values:")
+# print(correlation_matrix)
 
 
 
@@ -160,4 +160,48 @@ print(correlation_matrix)
 #     stop_words = set(nltk.corpus.stopwords.words("english"))
 
 #     tokens = [word for word in tokens if word not in stop_words]
-#     return " ".join(tokens)
+#     return " ".join(tokens)  
+# 
+# its more update version u can say
+
+
+
+import string
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+
+# DOWNLOAD THE REQUIRED DATASETS ---
+nltk.download("punkt")
+nltk.download("punkt_tab")
+nltk.download("stopwords")
+
+
+# Initialize the stemmer
+ps = PorterStemmer()
+
+
+def transform_text(text):
+    # 1. Lowercase
+    text = text.lower()
+
+    # 2. Tokenize
+    tokens = nltk.word_tokenize(text)
+
+    # 3. Keep only alphanumeric tokens (removes punctuation)
+    tokens = [word for word in tokens if word.isalnum()]
+
+    # 4. Remove Stop Words
+    stop_words = set(stopwords.words("english"))
+    tokens = [word for word in tokens if word not in stop_words]
+
+    # 5. Apply Stemming (The step the photo tried to do)
+    tokens = [ps.stem(word) for word in tokens]
+
+    # 6. Join back with space
+    return " ".join(tokens)
+
+
+# Example test:
+print(transform_text("I loved the loving text messages you were sending!"))
+# Output: "love love text messag send"
