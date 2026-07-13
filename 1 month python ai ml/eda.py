@@ -137,3 +137,27 @@ print(correlation_matrix)
 
 
 # Data processing and feature extraction are crucial steps in preparing your dataset for machine learning models. In this code, we have performed the following steps: 
+
+
+# ?sterps of data processing and feature extraction:
+# lowercse 
+# ?tokenization
+# remove the special characters
+# remove the stop words and punctuation
+
+
+# def transform_text(text):
+#     # Convert to lowercase
+#     text = text.lower()
+
+#     # Tokenize the text
+#     tokens = nltk.word_tokenize(text)
+
+#     # Remove special characters and punctuation
+#     tokens = [word for word in tokens if word.isalnum()]
+
+#     # Remove stop words
+#     stop_words = set(nltk.corpus.stopwords.words("english"))
+
+#     tokens = [word for word in tokens if word not in stop_words]
+#     return " ".join(tokens)
