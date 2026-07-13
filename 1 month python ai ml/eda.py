@@ -293,3 +293,36 @@ plt.axis("off")
 # Save it to your folder
 plt.savefig("spam_wordcloud.png")
 print("Success! WordCloud saved as 'spam_wordcloud.png'")
+
+
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+
+cv = CountVectorizer()
+
+tfidf = TfidfVectorizer (max_features=3000)
+
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+
+text = ["I love programming", "Python is great for data science"]
+
+# initialize the CountVectorizer
+cv = CountVectorizer()
+
+x = cv.fit_transform(text).toarray()
+print(cv.get_feature_names_out())
+print("Count Vectorizer Output:\n", x)
+
+
+X = tfidf.fit_transform(df["transformed_text"]).toarray()
+X.shape  # Display the shape of the TF-IDF feature matrix
+
+
+
+
+from sklearn.model_selection import train_test_split
+
+# Map the target variable to binary values (ham=0, spam=1)
+y= df["target"].map({"ham": 0, "spam": 1}).values
+
+# Split the dataset into training and testing sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X , y , test_size=0.2, random_state=42)
