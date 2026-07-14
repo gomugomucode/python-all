@@ -206,6 +206,9 @@
 # print(transform_text("I loved the loving text messages you were sending!"))
  
 
+
+
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -303,13 +306,19 @@ tfidf = TfidfVectorizer (max_features=3000)
 
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
+
 text = ["I love programming", "Python is great for data science"]
 
 # initialize the CountVectorizer
 cv = CountVectorizer()
 
+# fit and transform the text data
 x = cv.fit_transform(text).toarray()
+
+# display the feature names and the transformed array
 print(cv.get_feature_names_out())
+
+# display the transformed array
 print("Count Vectorizer Output:\n", x)
 
 
@@ -317,12 +326,46 @@ X = tfidf.fit_transform(df["transformed_text"]).toarray()
 X.shape  # Display the shape of the TF-IDF feature matrix
 
 
-
+# ==========================================
+# TEXT VECTORIZATION, SPLIT, & ML TRAINING
+# ==========================================
 
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB  # <-- Added the model import
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, precision_score
 
 # Map the target variable to binary values (ham=0, spam=1)
-y= df["target"].map({"ham": 0, "spam": 1}).values
+y = df["target"].map({"ham": 0, "spam": 1}).values
 
 # Split the dataset into training and testing sets (80% train, 20% test)
-X_train, X_test, y_train, y_test = train_test_split(X , y , test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+print("\n--- Dataset Split Information ---")
+print("Training features shape:", X_train.shape)
+print("Testing features shape:", X_test.shape)
+print("Training labels shape:", y_train.shape)
+print("Testing labels shape:", y_test.shape)
+
+# 1. Initialize the Multinomial Naive Bayes model
+model = MultinomialNB()
+
+# 2. Train the model on the training data
+model.fit(X_train, y_train)
+
+# 3. Predict classifications on the unseen testing data
+y_pred = model.predict(X_test)
+
+# 4. Evaluate the model performance metrics
+print("\n--- Model Performance Evaluation ---")
+print("Accuracy Score: ", accuracy_score(y_test, y_pred))
+print("Precision Score:", precision_score(y_test, y_pred))
+
+print("\nConfusion Matrix Matrix:")
+print(confusion_matrix(y_test, y_pred))
+
+print("\nDetailed Classification Report:")
+print(classification_report(y_test, y_pred))
+
+
+# gnb = GaussianNB()
+
