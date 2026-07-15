@@ -1,6 +1,5 @@
 # data cleaning mean fixing /remaining , incomplete incorrect data 
 
-
 import pandas as pd
 
 df = pd.read_csv('data.csv')
