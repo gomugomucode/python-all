@@ -18,12 +18,12 @@ class Perceptron:
     self.num_inputs = num_inputs
     self.weights = weights
     
-    # 
-  def weighted_sum(self, inputs):
+    # in thsi function we do weighted sunm calculation
+  def weighted_sum(self, inputs):  #the iput are 2 because the num input is 2  in array or list like [2,6]
     # create variable to store weighted sum
     weighted_sum = 0
-    for i in range(self.num_inputs):
-      pass
+    for i in range(self.num_inputs):  #here the i in nrange (2) because the  self.num_inputs  value is 2 
+      weighted_sum += inputs[i] * self.weights[i]
       # complete this loop
     return weighted_sum 
       
