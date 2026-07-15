@@ -32,8 +32,14 @@ class Perceptron:
       # complete this loop
     return weighted_sum 
   
-   def activation(self, weighted_sum):
-    #Complete this method
+
+# activation functions are special functions that transform the weighted sum into a desired and constrained output.
+#    — 1 for “Yes” and 0 for “No”
+  def activation(self, weighted_sum):
+    if weighted_sum >= 0:
+      return 1
+    else :
+      return -1
 
 
 cool_perceptron = Perceptron()
