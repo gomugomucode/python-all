@@ -209,163 +209,284 @@
 
 
 
-import pandas as pd
-import matplotlib.pyplot as plt
+# import pandas as pd
+# import matplotlib.pyplot as plt
+
+
+# import string
+# import nltk
+# from nltk.corpus import stopwords
+# from nltk.stem import PorterStemmer
+
+# # DOWNLOAD THE REQUIRED DATASETS ---
+# nltk.download("punkt")
+# nltk.download("punkt_tab")
+# nltk.download("stopwords")
+
+
+# # Initialize the stemmer
+# ps = PorterStemmer()
+
+
+# def transform_text(text):
+#     # 1. Lowercase
+#     text = text.lower()
+
+#     # 2. Tokenize
+#     tokens = nltk.word_tokenize(text)
+
+#     # 3. Keep only alphanumeric tokens (removes punctuation)
+#     tokens = [word for word in tokens if word.isalnum()]
+
+#     # 4. Remove Stop Words
+#     stop_words = set(stopwords.words("english"))
+#     tokens = [word for word in tokens if word not in stop_words]
+
+#     # 5. Apply Stemming
+#     tokens = [ps.stem(word) for word in tokens]
+
+#     # 6. Join back with space
+#     return " ".join(tokens)
+
+
+
+# print(transform_text("I loved the loving text messages you were sending!"))
+
+
+
+
+
+# # Ensure tokenizers are downloaded
+# nltk.download('punkt')
+# nltk.download('punkt_tab')
+
+# # 1. Load the data properly
+# df = pd.read_csv("spam.csv", encoding="latin-1")
+
+# # 2. Slice out empty trailing columns
+# df = df.iloc[:, :2]
+
+# # 3. Rename columns properly
+# df.columns = ["target", "text"]
+
+# # 4. Clean spacing strings
+# df["target"] = df["target"].str.strip()
+
+# # 5. Extract Text Features (Character and word count)
+# df["num_characters"] = df["text"].apply(len)
+# df["num_words"] = df["text"].apply(lambda x: len(nltk.word_tokenize(x)))
+
+
+# df["transformed_text"] = df["text"].apply(transform_text)
+# df.head()  # Display the first few rows of the DataFrame to verify the transformation
+
+
+
+# from wordcloud import WordCloud
+
+# wc = WordCloud(
+#     width=500, height=500, min_font_size=10, background_color="white"
+# )
+
+# # Generate the word cloud for spam messages
+# spam_wc = wc.generate(
+#     df[df["target"] == "spam"]["transformed_text"].str.cat(sep=" ")
+# )
+
+# # Plot and save the figure
+# plt.figure(figsize=(10, 8))
+# plt.imshow(spam_wc, interpolation="bilinear")
+# plt.axis("off")
+
+# # Save it to your folder
+# plt.savefig("spam_wordcloud.png")
+# print("Success! WordCloud saved as 'spam_wordcloud.png'")
+
+
+# from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+
+# cv = CountVectorizer()
+
+# tfidf = TfidfVectorizer (max_features=3000)
+
+# from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+
+
+# text = ["I love programming", "Python is great for data science"]
+
+# # initialize the CountVectorizer
+# cv = CountVectorizer()
+
+# # fit and transform the text data
+# x = cv.fit_transform(text).toarray()
+
+# # display the feature names and the transformed array
+# print(cv.get_feature_names_out())
+
+# # display the transformed array
+# print("Count Vectorizer Output:\n", x)
+
+
+# X = tfidf.fit_transform(df["transformed_text"]).toarray()
+# X.shape  # Display the shape of the TF-IDF feature matrix
+
+
+
+
+# # #==========================================
+# # # TEXT VECTORIZATION, SPLIT, & ML TRAINING
+# # # ==========================================
+
+# from sklearn.model_selection import train_test_split
+# from sklearn.naive_bayes import MultinomialNB  # <-- Added the model import
+# from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, precision_score
+
+# # Map the target variable to binary values (ham=0, spam=1)
+# y = df["target"].map({"ham": 0, "spam": 1}).values
+
+# # Split the dataset into training and testing sets (80% train, 20% test)
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# print("\n--- Dataset Split Information ---")
+# print("Training features shape:", X_train.shape)
+# print("Testing features shape:", X_test.shape)
+# print("Training labels shape:", y_train.shape)
+# print("Testing labels shape:", y_test.shape)
+
+# # 1. Initialize the Multinomial Naive Bayes model
+# model = MultinomialNB()
+
+# # 2. Train the model on the training data
+# model.fit(X_train, y_train)
+
+# # 3. Predict classifications on the unseen testing data
+# y_pred = model.predict(X_test)
+
+# # 4. Evaluate the model performance metrics
+# print("\n--- Model Performance Evaluation ---")
+# print("Accuracy Score: ", accuracy_score(y_test, y_pred))
+# print("Precision Score:", precision_score(y_test, y_pred))
+
+# print("\nConfusion Matrix Matrix:")
+# print(confusion_matrix(y_test, y_pred))
+
+# print("\nDetailed Classification Report:")
+# print(classification_report(y_test, y_pred))
+
+
+# # # gnb = GaussianNB()
+
+
+
 
 
 import string
+import matplotlib.pyplot as plt
 import nltk
+import pandas as pd
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
+from sklearn.ensemble import BaggingClassifier, RandomForestClassifier
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics import (
+    accuracy_score,
+    classification_report,
+    confusion_matrix,
+    precision_score,
+)
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from wordcloud import WordCloud
+from xgboost import XGBClassifier
 
-# DOWNLOAD THE REQUIRED DATASETS ---
-nltk.download("punkt")
-nltk.download("punkt_tab")
-nltk.download("stopwords")
-
+# --- DOWNLOAD REQUIRED DATASETS ---
+nltk.download("punkt", quiet=True)
+nltk.download("punkt_tab", quiet=True)
+nltk.download("stopwords", quiet=True)
 
 # Initialize the stemmer
 ps = PorterStemmer()
 
 
 def transform_text(text):
-    # 1. Lowercase
     text = text.lower()
-
-    # 2. Tokenize
     tokens = nltk.word_tokenize(text)
-
-    # 3. Keep only alphanumeric tokens (removes punctuation)
     tokens = [word for word in tokens if word.isalnum()]
-
-    # 4. Remove Stop Words
     stop_words = set(stopwords.words("english"))
     tokens = [word for word in tokens if word not in stop_words]
-
-    # 5. Apply Stemming
     tokens = [ps.stem(word) for word in tokens]
-
-    # 6. Join back with space
     return " ".join(tokens)
 
 
-
-print(transform_text("I loved the loving text messages you were sending!"))
-
-
-# Ensure tokenizers are downloaded
-nltk.download('punkt')
-nltk.download('punkt_tab')
-
-# 1. Load the data properly
+# 1. Load data
 df = pd.read_csv("spam.csv", encoding="latin-1")
-
-# 2. Slice out empty trailing columns
 df = df.iloc[:, :2]
-
-# 3. Rename columns properly
 df.columns = ["target", "text"]
-
-# 4. Clean spacing strings
 df["target"] = df["target"].str.strip()
 
-# 5. Extract Text Features (Character and word count)
+# 2. Add text length features
 df["num_characters"] = df["text"].apply(len)
 df["num_words"] = df["text"].apply(lambda x: len(nltk.word_tokenize(x)))
-
-
 df["transformed_text"] = df["text"].apply(transform_text)
-df.head()  # Display the first few rows of the DataFrame to verify the transformation
 
-from wordcloud import WordCloud
-
+# 3. Save Wordcloud
 wc = WordCloud(
     width=500, height=500, min_font_size=10, background_color="white"
 )
-
-# Generate the word cloud for spam messages
 spam_wc = wc.generate(
     df[df["target"] == "spam"]["transformed_text"].str.cat(sep=" ")
 )
-
-# Plot and save the figure
 plt.figure(figsize=(10, 8))
 plt.imshow(spam_wc, interpolation="bilinear")
 plt.axis("off")
-
-# Save it to your folder
 plt.savefig("spam_wordcloud.png")
 print("Success! WordCloud saved as 'spam_wordcloud.png'")
 
-
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-
-cv = CountVectorizer()
-
-tfidf = TfidfVectorizer (max_features=3000)
-
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-
-
-text = ["I love programming", "Python is great for data science"]
-
-# initialize the CountVectorizer
-cv = CountVectorizer()
-
-# fit and transform the text data
-x = cv.fit_transform(text).toarray()
-
-# display the feature names and the transformed array
-print(cv.get_feature_names_out())
-
-# display the transformed array
-print("Count Vectorizer Output:\n", x)
-
-
-X = tfidf.fit_transform(df["transformed_text"]).toarray()
-X.shape  # Display the shape of the TF-IDF feature matrix
-
-
-# ==========================================
-# TEXT VECTORIZATION, SPLIT, & ML TRAINING
-# ==========================================
-
-from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import MultinomialNB  # <-- Added the model import
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, precision_score
-
-# Map the target variable to binary values (ham=0, spam=1)
+# 4. Text Vectorization
+# Optimization: We REMOVE .toarray() so data stays as a fast, light Sparse Matrix
+tfidf = TfidfVectorizer(max_features=3000)
+X = tfidf.fit_transform(df["transformed_text"])
 y = df["target"].map({"ham": 0, "spam": 1}).values
 
-# Split the dataset into training and testing sets (80% train, 20% test)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# 5. Split Dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
-print("\n--- Dataset Split Information ---")
-print("Training features shape:", X_train.shape)
-print("Testing features shape:", X_test.shape)
-print("Training labels shape:", y_train.shape)
-print("Testing labels shape:", y_test.shape)
+# 6. Initialize the 6 Classifiers
+svc = SVC(kernel="sigmoid", gamma=1.0)
+mnb = MultinomialNB()
+dtc = DecisionTreeClassifier(max_depth=5)
+rfc = RandomForestClassifier(n_estimators=50, random_state=42)
+bc = BaggingClassifier(n_estimators=50, random_state=42)
+# n_jobs=-1 forces XGBoost to use all your CPU cores to prevent freezing
+xgb = XGBClassifier(n_estimators=50, max_depth=5, n_jobs=-1, random_state=42)
 
-# 1. Initialize the Multinomial Naive Bayes model
-model = MultinomialNB()
-
-# 2. Train the model on the training data
-model.fit(X_train, y_train)
-
-# 3. Predict classifications on the unseen testing data
-y_pred = model.predict(X_test)
-
-# 4. Evaluate the model performance metrics
-print("\n--- Model Performance Evaluation ---")
-print("Accuracy Score: ", accuracy_score(y_test, y_pred))
-print("Precision Score:", precision_score(y_test, y_pred))
-
-print("\nConfusion Matrix Matrix:")
-print(confusion_matrix(y_test, y_pred))
-
-print("\nDetailed Classification Report:")
-print(classification_report(y_test, y_pred))
+clfs = {"SVC": svc, "NB": mnb, "DT": dtc, "RF": rfc, "BGC": bc, "XGB": xgb}
 
 
-# gnb = GaussianNB()
+# 7. Helper Function for training
+def train_classifier(clf, X_train, y_train, X_test, y_test):
+    clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred)
+    return accuracy, precision
 
+
+# 8. Loop and Evaluate All Models
+print("\n--- Comparing Classifiers ---")
+for name, clf in clfs.items():
+    current_accuracy, current_precision = train_classifier(
+        clf, X_train, y_train, X_test, y_test
+    )
+    print(f"Model Name: {name}")
+    print(f"  Accuracy  : {current_accuracy:.4f}")
+    print(f"  Precision : {current_precision:.4f}\n")
+
+
+import pickle
+pickle.dump(tfidf , open ('vectorizer.pkl' , 'wb'))
+pickle.dump(mnb, open ('model.pkl' , 'wb'))
