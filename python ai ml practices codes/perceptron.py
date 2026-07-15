@@ -13,6 +13,7 @@
 # now adding the weighted sum variable o store the data
 
 class Perceptron:
+#   here the num_inputs = 2 mena 2 inputs by default and the weights=[2,1] mena the first inpout weight is  twice as important to the perceptron as the second input.
   def __init__(self, num_inputs=2, weights=[2,1]):
     self.num_inputs = num_inputs
     self.weights = weights
