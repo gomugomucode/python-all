@@ -10,6 +10,11 @@
 # print(cool_perceptron)
 
 
+# Perceptron steps : 
+# 1 . weighted sum calculation
+# 2. Activation Function
+
+
 # now adding the weighted sum variable o store the data
 
 class Perceptron:
@@ -26,6 +31,12 @@ class Perceptron:
       weighted_sum += inputs[i] * self.weights[i]
       # complete this loop
     return weighted_sum 
-      
+  
+   def activation(self, weighted_sum):
+    #Complete this method
+
+
 cool_perceptron = Perceptron()
+print(cool_perceptron.weighted_sum([24, 55]))
+
 
