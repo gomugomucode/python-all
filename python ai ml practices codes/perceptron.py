@@ -50,3 +50,98 @@
 # print(cool_perceptron.activation(weighted_sum))
 
 
+
+# above we just pass 2 valse and weight and it ell yes or no in binary  but if we have to work in larger data set then we have to train the preception  so for that we are going to train the preceptron 
+
+
+# # importing the matplot and random
+# import matplotlib.pyplot as plt
+# import random
+
+# # creating a  generate_training_set function with argument num_points
+# def generate_training_set(num_points):
+# 	x_coordinates = [random.randint(0, 50) for i in range(num_points)]   #here storing the xcoordinate for i range  numpoint  and generating random number everytime
+# 	y_coordinates = [random.randint(0, 50) for i in range(num_points)]
+# 	training_set = dict()
+
+# 	# in this step we ar making a pair of x,y by using the zip which combine x and y value 
+# 	for x, y in zip(x_coordinates, y_coordinates):
+# 		# here 45 is jus aan random number we can use any 
+# 		if x <= 45-y:
+# 			training_set[(x,y)] = 1
+# 		elif x > 45-y:
+# 			training_set[(x,y)] = -1
+# 	return training_set
+
+# # creating an training_set object 
+# training_set = generate_training_set(30)
+
+# # creating an empty array of x y plus minus
+# x_plus = []
+# y_plus = []
+# x_minus = []
+# y_minus = []
+
+# # here accessing the value of x and y from the training set 
+# for data in training_set:
+# 	# checking the label 1 or -1 so we can store teh value in plus or minus simultaneously 
+# 	if training_set[data] == 1:
+# 		x_plus.append(data[0])
+# 		y_plus.append(data[1])
+# 	elif training_set[data] == -1:
+# 		x_minus.append(data[0])
+# 		y_minus.append(data[1])
+    
+# # creating the figure from mathplot
+# fig = plt.figure()
+# ax = plt.axes(xlim=(-25, 75), ylim=(-25, 75))
+
+# plt.scatter(x_plus, y_plus, marker = '+', c = 'green', s = 128, linewidth = 2)
+# plt.scatter(x_minus, y_minus, marker = '_', c = 'red', s = 128, linewidth = 2)
+
+# plt.title("Training Set")
+
+# plt.show()
+
+
+
+# now training errors in preceptron
+
+# Every time the output mismatches the expected label, we say that the perceptron has made a training error
+
+# training error = actual label − predicted label
+
+
+# class Perceptron:
+#   def __init__(self, num_inputs=2, weights=[1,1]):
+#     self.num_inputs = num_inputs
+#     self.weights = weights
+    
+#   def weighted_sum(self, inputs):
+#     weighted_sum = 0
+#     for i in range(self.num_inputs):
+#       weighted_sum += self.weights[i]*inputs[i]
+#     return weighted_sum
+  
+#   def activation(self, weighted_sum):
+#     if weighted_sum >= 0:
+#       return 1
+#     if weighted_sum < 0:
+#       return -1
+    
+#   def training(self, training_set):
+#     for inputs in training_set:
+#     #    creating a  variable called prediction and assign it the correct label value using .activation(), .weighted_sum(), and inputs in a single statement.
+#       prediction = self.activation(self.weighted_sum(inputs))  
+      
+# 	#   Creating a variable named actual and assign it the actual label for each inputs in training_set.
+#       actual = training_set[inputs]
+      
+# 	#   Creating a variable called error and assign it the value of actual - prediction.
+#       error = actual - prediction
+       
+
+     
+# cool_perceptron = Perceptron()
+# print(cool_perceptron.weighted_sum([24, 55]))
+# print(cool_perceptron.activation(52))
