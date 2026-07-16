@@ -153,3 +153,46 @@
 # The most important part of the algorithm is the update rule where the weights get updated:
 
 # weight=weight+(error∗input)
+
+
+class Perceptron:
+  def __init__(self, num_inputs=2, weights=[1,1]):
+    self.num_inputs = num_inputs
+    self.weights = weights
+    
+  def weighted_sum(self, inputs):
+    weighted_sum = 0
+    for i in range(self.num_inputs):
+      weighted_sum += self.weights[i]*inputs[i]
+    return weighted_sum
+  
+  def activation(self, weighted_sum):
+    if weighted_sum >= 0:
+      return 1
+    if weighted_sum < 0:
+      return -1
+    
+  def training(self, training_set):
+    foundLine = False
+    while not foundLine:
+      total_error = 0
+
+      for inputs in training_set:
+        prediction = self.activation(self.weighted_sum(inputs))
+        actual = training_set[inputs]
+        error = actual - prediction
+        total_error += abs(error)
+
+        # in thsi loop we are updating the weights of the perceptron based on the training errors. The weights are adjusted by adding the product of the error and the corresponding input value to each weight. This update rule allows the perceptron to learn from its mistakes and improve its classification performance over time.
+        for i in range(self.num_inputs):
+          self.weights[i] += error*inputs[i]
+
+        #   until total error is 0 we keep on training the perceptron and when the total error is 0 we found the line and we can stop the training
+      if total_error == 0:
+        foundLine = True
+        
+
+
+cool_perceptron = Perceptron()
+small_training_set = {(0,3):1, (3,0):-1, (0,-3):-1, (-3,0):1}
+print(cool_perceptron.training(small_training_set))
