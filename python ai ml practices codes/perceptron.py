@@ -145,3 +145,11 @@
 # cool_perceptron = Perceptron()
 # print(cool_perceptron.weighted_sum([24, 55]))
 # print(cool_perceptron.activation(52))
+
+
+
+# preceptron algorithim is a supervised learning algorithm that can be used for binary classification tasks. It works by finding a linear decision boundary that separates the two classes in the training data. The algorithm iteratively adjusts the weights of the perceptron based on the training errors until it converges to a solution that correctly classifies the training data.
+
+# The most important part of the algorithm is the update rule where the weights get updated:
+
+# weight=weight+(error∗input)
