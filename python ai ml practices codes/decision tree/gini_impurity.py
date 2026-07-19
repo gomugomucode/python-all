@@ -1,5 +1,7 @@
 from collections import Counter
 
+# counter is the dictonary subclass that automatically maps data points (as keys) to their total occurrence counts (as values) without requiring manual loops
+
 # we have labels here
 labels = ["unacc", "unacc", "acc", "acc", "good", "good"]
 # labels = ["unacc","unacc","unacc", "good", "vgood", "vgood"]
