@@ -42,7 +42,16 @@ auto = df
 # starting the machine learning
 
 plt.figure(figsize=(10, 10))
-sns.heatmap(auto.corr(), annot=True, cmap="coolwarm")
+sns.heatmap(auto.corr(), annot=True, cmap="Blues")
 plt.xticks(rotation=90)
 plt.yticks(rotation=90)
 plt.show()
+
+# starting ann
+
+yy = auto["TenYearCHD"]
+XX = auto.drop("TenYearCHD", axis=1)
+
+# x_train,x_test,y_train,y_test = train_test_split(x,y,test_size = 0.2,random_state = 42)
+
+XX.shape()
