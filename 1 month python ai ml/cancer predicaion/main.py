@@ -1,5 +1,6 @@
 # cancr predicitin
 
+from pandas.core.tools.datetimes import Scalar
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -55,3 +56,22 @@ XX = auto.drop("TenYearCHD", axis=1)
 # x_train,x_test,y_train,y_test = train_test_split(x,y,test_size = 0.2,random_state = 42)
 
 XX.shape()
+
+
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler()
+XX = scaler.fit_transform(XX)
+yy = scaler.fit_transform(yy.values.reshape(-1, 1))
+
+
+from sklearn.model_selection import train_test_split
+
+x_train, x_test, y_train, y_test = train_test_split(
+    XX, yy, test_size=0.2, random_state=42
+)
+
+print(x_train.shape)
+print(x_test.shape)
+print(y_train.shape)
+print(y_test.shape)
