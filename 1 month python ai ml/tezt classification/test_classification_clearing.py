@@ -1,119 +1,119 @@
-# # text classification clearning
-# import numpy as np
-# import pandas as pd
-# import re, string
-# import matplotlib.pyplot as plt
-# from nltk.corpus import stopwords
-# from nltk.stem import PorterStemmer
-# from sklearn.feature_extraction.text import TfidfVectorizer
-# from sklearn.pipeline import Pipeline
-# from sklearn.metrics import classification_report, confusion_matrix
-# from sklearn.model_selection import train_test_split
-# from sklearn.feature_selection import SelectKBest, chi2
-# import pickle
-# import nltk
+"""
+Text Classification Preprocessing Pipeline
+=========================================
+This script loads raw text data (BBC news dataset), performs exploratory data analysis (EDA),
+cleans text using regular expressions, removes English stopwords, applies Porter Stemming,
+and saves the cleaned dataset for downstream machine learning tasks.
+"""
 
-# nltk.download('stopwords')
-# %matplotlib inline
-
-# df = pd.read_csv('/content/bbc-folder - bbc-folder.csv', encoding = 'latin1')
-# df = df.sample(frac = 1)
-# df
-
-# len(df['news'][0].split())
-
-
-# #No of a categories
-# set(df['category'])
-
-
-import numpy as np
+import os
+import re
 import pandas as pd
-import re,string
 import matplotlib.pyplot as plt
+import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.pipeline import Pipeline
-from sklearn.metrics import classification_report, confusion_matrix
-from sklearn.model_selection import train_test_split
-from sklearn.feature_selection import SelectKBest, chi2
-import pickle
-import nltk
-nltk.download('stopwords')
-%matplotlib inline
 
-df = pd.read_csv('/content/bbc-folder - bbc-folder.csv', encoding = 'latin1')
-df = df.sample(frac = 1)
-df
-len(df['news'][0].split())
-#No of a categories
-set(df['category'])
-df.groupby('category').category.count()
-#Analyzing data
-df.groupby('category').category.count().plot.bar()
-plt.show()
-# Data Cleaning using regex
-regs = re.sub("[^a-zA-Z]", " ", df['news'][0]).lower()
-regs
-#stop words
-nltk.download('stopwords')
-words = stopwords.words("english")
-print(words)
-print(len(words))
-# Data Cleaning using stemmer
+# Ensure NLTK stopword corpus is downloaded silently
+nltk.download('stopwords', quiet=True)
 
-stemmer = PorterStemmer()
-data = "I am loving computing I have a computer".split()
-" ".join([stemmer.stem(i) for i in data])
-# stemmer.stem("")
-# print(words)
-# news = df['text'][0].split()
-# for i in words:
-#   c = news.count(i)
-#   for j in range(c):
-#     news.remove(i)
+# ----------------------------------------------------
+# 1. Text Preprocessing Function
+# ----------------------------------------------------
+def clean_text_pipeline(text: str, stemmer: PorterStemmer, stop_words: set) -> str:
+    """
+    Cleans a text string through the following pipeline:
+    1. Removes all non-alphabetic characters (numbers, punctuation, symbols).
+    2. Converts all text to lowercase.
+    3. Tokenizes into words and removes standard English stopwords.
+    4. Applies Porter Stemming to reduce words to their root forms.
+    """
+    if not isinstance(text, str):
+        return ""
 
-# print(" ".join(news))
-regs.lower().split()
-' '.join([i for i in regs.lower().split() if i not in words])
-# Data Cleaning removing stopwords
-words = stopwords.words("english")
-without_stop_words_of_a_news = " ".join([i for i in regs.lower().split() if i not in words])
-without_stop_words_of_a_news
-df = df.dropna()
-# Doing all cleaning process using regex, stemmer, stopwords for all data
-def clean_text_pipeline(text):
-    # Apply regex cleaning and convert to lowercase
-    text = re.sub("[^a-zA-Z]", " ", text).lower()
-    # Split into words
-    words_in_text = text.split()
-    # Remove stopwords (using 'words' list defined earlier)
-    words_without_stopwords = [word for word in words_in_text if word not in words]
-    # Apply stemming (using 'stemmer' object defined earlier)
-    stemmed_words = [stemmer.stem(word) for word in words_without_stopwords]
-    return " ".join(stemmed_words)
+    # Step 1 & 2: Keep only alphabetic characters and convert to lower case
+    text_alpha_only = re.sub(r"[^a-zA-Z]", " ", text).lower()
 
-df['cleaned'] = df['news'].apply(clean_text_pipeline)
-df
-# " ".join([stemmer.stem(i) for i in without_stop_words_of_a_news.lower().split()])
-# list(filter(lambda x: [stemmer.stem(i) for i in re.sub("[^a-zA-Z]", " ", x).split() if i not in words],df['text']))
-# #cleaning dataset
-# nltk.download('stopwords')
-# stemmer = PorterStemmer()
-# words = stopwords.words("english")
-# words.extend(['a','an','the'])
-# df['cleaned'] = df['cleaned'].apply(lambda x: " ".join([stemmer.stem(i) for i in re.sub("[^a-zA-Z]", " ", x.lower()).split() if i not in words]).lower())
-# # df['newcleaned'] = [(i for i in list(df['cleaned'])).split() if i not in words ]
-# df
-df.to_csv('cleaned_news.csv')
-# df['cleaned'] = df['text'].apply(lambda x: " ".join([stemmer.stem(i) for i in re.sub("[^a-zA-Z]", " ", x).split() ]).lower())
-# df
-# print(words)
-# words = stopwords.words("nepali")
-# words
-df['cleaned'] = df['news'].apply(lambda x: " ".join([stemmer.stem(i) for i in re.sub("[^a-zA-Z]", " ", x).split() if i not in words]).lower())
-df
-df1 = df[['news','cleaned']]
-df1.to_csv('cleaned_news_data')
-len(df['cleaned'][0])
+    # Step 3: Split into individual words
+    words_in_text = text_alpha_only.split()
+
+    # Step 4: Filter out stopwords and apply Porter Stemmer
+    cleaned_words = [
+        stemmer.stem(word) 
+        for word in words_in_text 
+        if word not in stop_words
+    ]
+
+    # Rejoin processed tokens into a single clean string
+    return " ".join(cleaned_words)
+
+
+# ----------------------------------------------------
+# 2. Main Execution Flow
+# ----------------------------------------------------
+def main():
+    # File Path Setup (Uses local file in current directory)
+    file_path = "bbc-folderr.csv"
+    if not os.path.exists(file_path):
+        print(f"Error: Data file '{file_path}' not found in current directory.")
+        return
+
+    # --- Step 1: Data Loading & Shuffling ---
+    print("Loading dataset...")
+    df = pd.read_csv(file_path, encoding='latin1')
+    
+    # Drop rows with missing news text or categories
+    df = df.dropna(subset=['news', 'category']).reset_index(drop=True)
+    
+    # Shuffle dataset randomly
+    df = df.sample(frac=1, random_state=42).reset_index(drop=True)
+
+    # --- Step 2: Exploratory Data Analysis (EDA) ---
+    print("\n--- Exploratory Data Analysis ---")
+    print(f"Total dataset records: {len(df)}")
+    print(f"Unique news categories found: {set(df['category'])}")
+    
+    print("\nCategory Distribution:")
+    category_counts = df.groupby('category')['category'].count()
+    print(category_counts)
+
+    # Sample check of original news article length (in words)
+    first_news_sample = df['news'].iloc[0]
+    sample_word_count = len(first_news_sample.split())
+    print(f"\nSample article word count: {sample_word_count} words")
+
+    # Plot Category Counts
+    category_counts.plot.bar(color='skyblue', edgecolor='black')
+    plt.title("BBC News Categories Distribution")
+    plt.xlabel("Category")
+    plt.ylabel("Article Count")
+    plt.tight_layout()
+    print("\nDisplaying category distribution bar chart...")
+    plt.show()
+
+    # --- Step 3: Text Preprocessing & Cleaning ---
+    print("\nStarting text cleaning pipeline...")
+    stemmer = PorterStemmer()
+    english_stopwords = set(stopwords.words("english"))
+
+    # Apply preprocessing to all news articles
+    df['cleaned'] = df['news'].apply(
+        lambda text: clean_text_pipeline(text, stemmer, english_stopwords)
+    )
+
+    # Inspect sample before and after cleaning
+    print("\n--- Preprocessing Demonstration ---")
+    print("Original Text Sample (first 150 chars):")
+    print(first_news_sample[:150], "...")
+    print("\nCleaned & Stemmed Text Sample (first 150 chars):")
+    print(df['cleaned'].iloc[0][:150], "...")
+
+    # --- Step 4: Export Processed Dataset ---
+    output_file = "cleaned_news_data.csv"
+    output_cols = ['category', 'news', 'cleaned']
+    
+    df[output_cols].to_csv(output_file, index=False)
+    print(f"\nCleaned dataset saved successfully to: '{output_file}'")
+
+if __name__ == "__main__":
+    main()
