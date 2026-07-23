@@ -1,77 +1,141 @@
-# cancr predicitin
+# ==========================================
+# Heart Disease Prediction using ANN
+# Dataset: Framingham Heart Disease Dataset
+# ==========================================
 
-from pandas.core.tools.datetimes import Scalar
+import warnings
+warnings.filterwarnings("ignore")
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.pyplot import xticks, yticks
 import seaborn as sns
-from sklearn.preprocessing import LabelEncoder
+
 from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Input
 
-
-#  data cleaning and proccessing
-
-
-# load dataset
+# -------------------------------
+# Load Dataset
+# -------------------------------
 df = pd.read_csv("breast_cancer.csv")
+
 print(df.head())
-
-
 print(df.shape)
-
+print(df.info())
 print(df.describe())
 
-print(df.info())
-
-print(df.columns)
-
-
-# checking null
-
-df.isnull()
+# -------------------------------
+# Missing Values
+# -------------------------------
+print(df.isnull().sum())
 
 df = df.dropna()
 
+print("Dataset Shape after removing missing values:", df.shape)
 
-auto = df
-
-
-# starting the machine learning
-
-plt.figure(figsize=(10, 10))
-sns.heatmap(auto.corr(), annot=True, cmap="Blues")
-plt.xticks(rotation=90)
-plt.yticks(rotation=90)
+# -------------------------------
+# Correlation Heatmap
+# -------------------------------
+plt.figure(figsize=(12,10))
+sns.heatmap(df.corr(), annot=True, cmap="Blues")
+plt.title("Correlation Heatmap")
 plt.show()
 
-# starting ann
+# -------------------------------
+# Feature Selection
+# -------------------------------
+X = df.drop("TenYearCHD", axis=1)
+y = df["TenYearCHD"]
 
-yy = auto["TenYearCHD"]
-XX = auto.drop("TenYearCHD", axis=1)
+print("Feature Shape:", X.shape)
 
-# x_train,x_test,y_train,y_test = train_test_split(x,y,test_size = 0.2,random_state = 42)
-
-XX.shape()
-
-
-from sklearn.preprocessing import MinMaxScaler
-
+# -------------------------------
+# Feature Scaling
+# -------------------------------
 scaler = MinMaxScaler()
-XX = scaler.fit_transform(XX)
-yy = scaler.fit_transform(yy.values.reshape(-1, 1))
+X = scaler.fit_transform(X)
 
+# DO NOT SCALE THE TARGET
+# y should remain 0 and 1
 
-from sklearn.model_selection import train_test_split
-
+# -------------------------------
+# Train Test Split
+# -------------------------------
 x_train, x_test, y_train, y_test = train_test_split(
-    XX, yy, test_size=0.2, random_state=42
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
 )
 
 print(x_train.shape)
 print(x_test.shape)
-print(y_train.shape)
-print(y_test.shape)
+
+# -------------------------------
+# Build ANN Model
+# -------------------------------
+model = Sequential()
+
+model.add(Input(shape=(x_train.shape[1],)))
+model.add(Dense(32, activation="relu"))
+model.add(Dense(16, activation="relu"))
+model.add(Dense(1, activation="sigmoid"))
+
+model.compile(
+    optimizer="adam",
+    loss="binary_crossentropy",
+    metrics=["accuracy"]
+)
+
+model.summary()
+
+# -------------------------------
+# Train Model
+# -------------------------------
+history = model.fit(
+    x_train,
+    y_train,
+    epochs=20,
+    batch_size=32,
+    validation_split=0.2,
+    verbose=1
+)
+
+# -------------------------------
+# Evaluate Model
+# -------------------------------
+loss, accuracy = model.evaluate(x_test, y_test)
+
+print("Test Accuracy:", accuracy)
+
+# -------------------------------
+# Accuracy Graph
+# -------------------------------
+plt.figure(figsize=(8,5))
+
+plt.plot(history.history["accuracy"], label="Training Accuracy")
+plt.plot(history.history["val_accuracy"], label="Validation Accuracy")
+
+plt.title("Training vs Validation Accuracy")
+plt.xlabel("Epoch")
+plt.ylabel("Accuracy")
+plt.legend()
+
+plt.show()
+
+# -------------------------------
+# Loss Graph
+# -------------------------------
+plt.figure(figsize=(8,5))
+
+plt.plot(history.history["loss"], label="Training Loss")
+plt.plot(history.history["val_loss"], label="Validation Loss")
+
+plt.title("Training vs Validation Loss")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.legend()
+
+plt.show()
