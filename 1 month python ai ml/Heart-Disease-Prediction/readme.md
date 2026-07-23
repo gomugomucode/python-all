@@ -1,65 +1,34 @@
-# Heart Disease Prediction using Artificial Neural Network (ANN)
+# ❤️ Heart Disease Prediction using Artificial Neural Network (ANN)
 
-## Overview
-
-This project predicts the likelihood of a patient developing coronary heart disease (CHD) within the next 10 years using an **Artificial Neural Network (ANN)**. The model is trained on the **Framingham Heart Disease Dataset**, a well-known dataset containing patient health information and risk factors.
-
-The project demonstrates the complete machine learning workflow, including:
-
-- Data loading
-- Data preprocessing
-- Handling missing values
-- Exploratory Data Analysis (EDA)
-- Feature scaling
-- Training an Artificial Neural Network
-- Model evaluation
-- Visualization of training performance
+A machine learning project that predicts the risk of developing coronary heart disease (CHD) within the next 10 years using the **Framingham Heart Study Dataset** and an **Artificial Neural Network (ANN)** built with TensorFlow/Keras.
 
 ---
 
-# Dataset
+## 📌 Project Overview
 
-**Dataset Name:** Framingham Heart Disease Dataset
+Heart disease is one of the leading causes of death worldwide. Early prediction can help identify individuals at high risk and enable preventive healthcare.
 
-> **Note:** Although the file is named `breast_cancer.csv` in this project, it actually contains the **Framingham Heart Disease Dataset**. The filename was changed for convenience, but the data remains the same.
+This project uses the **Framingham Heart Study dataset** to train an Artificial Neural Network that predicts whether a patient is likely to develop coronary heart disease within the next 10 years.
 
-### Target Variable
-
-**TenYearCHD**
-
-- **0** → No risk of developing coronary heart disease within 10 years
-- **1** → Risk of developing coronary heart disease within 10 years
+The model performs data preprocessing, feature scaling, model training, evaluation, and visualization of training performance.
 
 ---
 
-# Features
+## 🎯 Objective
 
-The dataset contains several medical and lifestyle features, including:
-
-- Age
-- Gender
-- Smoking status
-- Cigarettes per day
-- Blood pressure medication
-- Stroke history
-- Hypertension
-- Diabetes
-- Total cholesterol
-- Systolic Blood Pressure
-- Diastolic Blood Pressure
-- Body Mass Index (BMI)
-- Heart Rate
-- Glucose Level
-
-These features are used to predict the target variable **TenYearCHD**.
+- Predict whether a person will develop heart disease within the next 10 years.
+- Apply data preprocessing techniques.
+- Train an Artificial Neural Network.
+- Evaluate model performance.
+- Visualize training and validation accuracy/loss.
 
 ---
 
-# Technologies Used
+## 🛠 Technologies Used
 
 - Python 3
-- NumPy
 - Pandas
+- NumPy
 - Matplotlib
 - Seaborn
 - Scikit-learn
@@ -67,170 +36,155 @@ These features are used to predict the target variable **TenYearCHD**.
 
 ---
 
-# Project Workflow
+## 📂 Dataset
 
-## 1. Import Required Libraries
+**Dataset:** Framingham Heart Disease Dataset
 
-The project begins by importing all the required Python libraries for data analysis, visualization, preprocessing, and deep learning.
+Each row represents one patient's health information.
+
+### Features
+
+| Feature         | Description                                               |
+| --------------- | --------------------------------------------------------- |
+| male            | Gender (1 = Male, 0 = Female)                             |
+| age             | Age of the patient                                        |
+| education       | Education level                                           |
+| currentSmoker   | Smoking status                                            |
+| cigsPerDay      | Cigarettes smoked per day                                 |
+| BPMeds          | Blood pressure medication                                 |
+| prevalentStroke | Previous stroke history                                   |
+| prevalentHyp    | Hypertension                                              |
+| diabetes        | Diabetes status                                           |
+| totChol         | Total cholesterol                                         |
+| sysBP           | Systolic blood pressure                                   |
+| diaBP           | Diastolic blood pressure                                  |
+| BMI             | Body Mass Index                                           |
+| heartRate       | Heart rate                                                |
+| glucose         | Blood glucose level                                       |
+| TenYearCHD      | Target variable (1 = Heart Disease, 0 = No Heart Disease) |
 
 ---
 
-## 2. Load the Dataset
+## 📊 Sample Dataset
 
-The dataset is loaded into a Pandas DataFrame.
+| male | age | education | smoker | cholesterol | glucose | CHD |
+| ---- | --- | --------- | ------ | ----------- | ------- | --- |
+| 1    | 39  | 4         | No     | 195         | 77      | 0   |
+| 0    | 46  | 2         | No     | 250         | 76      | 0   |
+| 1    | 48  | 1         | Yes    | 245         | 70      | 0   |
+| 0    | 61  | 3         | Yes    | 225         | 103     | 1   |
 
-```python
-df = pd.read_csv("breast_cancer.csv")
+---
+
+## ⚙️ Workflow
+
+```
+Load Dataset
+      │
+      ▼
+Explore Dataset
+      │
+      ▼
+Handle Missing Values
+      │
+      ▼
+Correlation Analysis
+      │
+      ▼
+Feature Selection
+      │
+      ▼
+Feature Scaling
+      │
+      ▼
+Train-Test Split
+      │
+      ▼
+Build ANN Model
+      │
+      ▼
+Train Model
+      │
+      ▼
+Evaluate Model
+      │
+      ▼
+Visualize Results
 ```
 
 ---
 
-## 3. Data Exploration
+## 🧠 Artificial Neural Network Architecture
 
-The following functions are used to understand the dataset:
-
-- `head()`
-- `shape`
-- `info()`
-- `describe()`
-- `columns`
-
-This helps identify:
-
-- Number of rows and columns
-- Data types
-- Summary statistics
-- Feature names
-
----
-
-## 4. Data Cleaning
-
-Missing values are checked using:
-
-```python
-df.isnull().sum()
 ```
-
-Rows containing missing values are removed using:
-
-```python
-df.dropna()
+Input Layer
+      │
+      ▼
+Dense Layer (32 neurons, ReLU)
+      │
+      ▼
+Dense Layer (16 neurons, ReLU)
+      │
+      ▼
+Output Layer (1 neuron, Sigmoid)
 ```
 
 ---
 
-## 5. Exploratory Data Analysis (EDA)
+## 📈 Model Configuration
 
-A correlation heatmap is created to visualize relationships between features.
+| Parameter        | Value               |
+| ---------------- | ------------------- |
+| Optimizer        | Adam                |
+| Loss Function    | Binary Crossentropy |
+| Metric           | Accuracy            |
+| Epochs           | 20                  |
+| Batch Size       | 32                  |
+| Validation Split | 20%                 |
 
-```python
-sns.heatmap(df.corr(), annot=True)
+---
+
+## 📊 Visualizations
+
+The project generates:
+
+- Correlation Heatmap
+- Training Accuracy Graph
+- Validation Accuracy Graph
+- Training Loss Graph
+- Validation Loss Graph
+
+---
+
+## 📦 Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/yourusername/heart-disease-ann.git
 ```
 
-This helps identify which features are strongly related to the target variable.
+Move into the project
 
----
+```bash
+cd heart-disease-ann
+```
 
-## 6. Feature Selection
+Install dependencies
 
-The dataset is divided into:
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn tensorflow
+```
 
-### Features (X)
+Run the project
 
-All independent variables.
-
-### Target (y)
-
-```python
-TenYearCHD
+```bash
+python main.py
 ```
 
 ---
 
-## 7. Feature Scaling
-
-The input features are normalized using **MinMaxScaler**.
-
-Scaling improves neural network performance by bringing all feature values into the same range.
-
----
-
-## 8. Train-Test Split
-
-The dataset is divided into:
-
-- **80% Training Data**
-- **20% Testing Data**
-
-This ensures the model is evaluated on unseen data.
-
----
-
-## 9. Building the ANN Model
-
-The Artificial Neural Network consists of:
-
-- Input Layer
-- Hidden Layer (32 neurons, ReLU activation)
-- Hidden Layer (16 neurons, ReLU activation)
-- Output Layer (1 neuron, Sigmoid activation)
-
-The output layer predicts the probability of heart disease.
-
----
-
-## 10. Model Compilation
-
-The model is compiled using:
-
-- **Optimizer:** Adam
-- **Loss Function:** Binary Crossentropy
-- **Evaluation Metric:** Accuracy
-
----
-
-## 11. Model Training
-
-The model is trained using:
-
-- Epochs: 20
-- Batch Size: 32
-- Validation Split: 20%
-
-Training allows the neural network to learn patterns from the data.
-
----
-
-## 12. Model Evaluation
-
-After training, the model is evaluated on the testing dataset to measure its prediction accuracy.
-
----
-
-## 13. Performance Visualization
-
-Two graphs are generated:
-
-### Accuracy Graph
-
-Shows the comparison between:
-
-- Training Accuracy
-- Validation Accuracy
-
-### Loss Graph
-
-Shows the comparison between:
-
-- Training Loss
-- Validation Loss
-
-These graphs help determine whether the model is learning effectively or overfitting.
-
----
-
-# Folder Structure
+## 📁 Project Structure
 
 ```
 Heart-Disease-Prediction/
@@ -241,84 +195,62 @@ Heart-Disease-Prediction/
 └── requirements.txt
 ```
 
----
-
-# Installation
-
-Clone the repository:
-
-```bash
-git clone <repository-url>
-```
-
-Move into the project directory:
-
-```bash
-cd Heart-Disease-Prediction
-```
-
-Install the required packages:
-
-```bash
-pip install -r requirements.txt
-```
-
-Run the project:
-
-```bash
-python main.py
-```
+> **Note:** Although the dataset file is named `breast_cancer.csv`, it actually contains the **Framingham Heart Disease dataset**. Renaming the file does not change the dataset.
 
 ---
 
-# Required Libraries
+## 📌 Machine Learning Steps
 
-```text
-numpy
-pandas
-matplotlib
-seaborn
-scikit-learn
-tensorflow
-```
-
-Install them with:
-
-```bash
-pip install numpy pandas matplotlib seaborn scikit-learn tensorflow
-```
+- Load dataset
+- Explore data
+- Remove missing values
+- Correlation analysis
+- Feature scaling using MinMaxScaler
+- Split data into training and testing sets
+- Build ANN model
+- Train model
+- Evaluate model
+- Plot accuracy and loss curves
 
 ---
 
-# Results
+## 📉 Evaluation
 
-The ANN learns patterns from patient health records to predict whether a patient is likely to develop coronary heart disease within the next 10 years.
-
-Model performance can be monitored using:
+The trained ANN is evaluated using:
 
 - Test Accuracy
 - Training Accuracy
 - Validation Accuracy
-- Loss Curves
+- Binary Cross-Entropy Loss
 
 ---
 
-# Future Improvements
+## 🚀 Future Improvements
 
-- Perform hyperparameter tuning.
-- Handle missing values using imputation instead of removing rows.
-- Add confusion matrix and classification report.
-- Compare ANN with other machine learning models such as:
-  - Logistic Regression
-  - Decision Tree
-  - Random Forest
-  - Support Vector Machine (SVM)
-  - K-Nearest Neighbors (KNN)
-
-- Save the trained model for future predictions.
+- Hyperparameter tuning
+- Dropout layers
+- Early stopping
+- Cross-validation
+- Model saving/loading
+- ROC Curve
+- Confusion Matrix
+- Precision, Recall, and F1-Score
+- Compare ANN with Decision Tree, Random Forest, SVM, and Logistic Regression
 
 ---
 
-# Conclusion
+## 👨‍💻 Author
 
-This project demonstrates how an Artificial Neural Network (ANN) can be used for binary classification to predict the risk of coronary heart disease. It covers the complete machine learning pipeline, including data preprocessing, feature scaling, model training, evaluation, and visualization. The project serves as a practical example of applying deep learning techniques to healthcare data and can be extended with additional models and optimization techniques for improved performance.
+**Anupam Baral**
+
+BCA Student | Full Stack Developer | AI & Machine Learning Enthusiast
+
+GitHub: https://github.com/gomugomucode
+
+Portfolio: https://www.anupambaral.com.np
+
+---
+
+## 📄 License
+
+This project is created for educational and learning purposes.
