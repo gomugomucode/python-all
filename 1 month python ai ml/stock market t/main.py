@@ -3,10 +3,9 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
-from keras.models import Sequential
-from keras.layers import LSTM,Dense,Dropout
 import tensorflow as tf
-from tensorflow import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense, Dropout
 #reading the data and making the date is the index
 data=pd.read_csv('/content/NFLX.csv',index_col='Date',parse_dates=True)
 data
@@ -18,14 +17,14 @@ data.head()
 data.tail()
 
 
-```
+# ```
 # This is formatted as code
-```
+# ```
 
-- There is no NaN data
-- Date handled already
-- next step is ploting our Data to see what is the important feature
-# Ploting Data
+# - There is no NaN data
+# - Date handled already
+# - next step is ploting our Data to see what is the important feature
+# # Ploting Data
 data.columns
 for columns in data.columns:
     plt.figure(figsize=(12,4))
@@ -39,8 +38,8 @@ for columns in data.columns:
         plt.plot(data.index,data[columns],label=columns)
 plt.xticks(rotation=45)
 plt.legend()
-- after ploting Data we decide to take High feature to predict when the stock will be high
-- next step we Data normalization
+# - after ploting Data we decide to take High feature to predict when the stock will be high
+# - next step we Data normalization
 # Data Normalization
 data=data['Close']
 data.shape
@@ -98,7 +97,7 @@ model.add(LSTM(32))
 model.add(Dense(16,activation='relu'))
 model.add(Dense(1))
 
-model.compile(optimizer= keras.optimizers.Adam(learning_rate=0.001),loss="mean_squared_error",metrics=[keras.metrics.RootMeanSquaredError()])
+model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), loss="mean_squared_error", metrics=[tf.keras.metrics.RootMeanSquaredError()])
 model.summary()
 ## Training the Model
 model.fit(X_train,y_train,epochs=100)
