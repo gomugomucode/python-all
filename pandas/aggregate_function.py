@@ -1,4 +1,3 @@
-
 # import pandas as pd
 
 # df = pd.read_csv('data.csv')
@@ -24,8 +23,6 @@
 # print("count of all the numeric values in the data frame is: ", df.count(numeric_only=True))  #this will print the count of all the numeric values in the data frame and it will ignore the string values
 
 
-
-
 # selecting the single coulum to do aggreate functions
 
 # import pandas as pd
@@ -48,25 +45,23 @@
 # print("Maximum Weight:", df['Weight'].max(numeric_only=True))
 
 
-
-
 # groupby()
 
 import pandas as pd
 
-df = pd.read_csv('data.csv'  )
+df = pd.read_csv("data.csv")
 
 df.columns = df.columns.str.strip()  # Clean column headers
 
-df.set_index('Name', inplace=True)  # Set 'Name' as the index
+df.set_index("Name", inplace=True)  # Set 'Name' as the index
 
 # group = df.groupby('Type1')
 # print("Mean Height by Type 1:")
 # print(group['Height'].mean(numeric_only=True))
 
-group = df.groupby('Legendary')
+# group = df.groupby('Legendary')
 
-print("Mean Height by Legendary Status:")
+# print("Mean Height by Legendary Status:")
 # print(group['Height'].mean(numeric_only=True))
 
 # # print(group[['Height']].mean(numeric_only=True))
@@ -74,7 +69,15 @@ print("Mean Height by Legendary Status:")
 # print(group['Height'].mean(numeric_only=True).reset_index())  # Reset index to get a DataFrame instead of Series
 
 
+# to select the multipole column we can pass the list of coilumn
 
-# to select the multipole column we can pass the list of coilumn 
+# print(group[['Height' , 'Weight']].mean(numeric_only=True))
 
-print(group[['Height' , 'Weight']].mean(numeric_only=True))
+
+# data cleaning
+
+# ?fixing removing , incomplete  incorrect data
+
+df = df.drop(columns=["Legendary"])
+
+print(df)
