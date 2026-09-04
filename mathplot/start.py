@@ -68,4 +68,7 @@ plt.plot(xpoints, ypoints, 'o')
 # Draws both the dots and the line connecting them
 # plt.plot(xpoints, ypoints, marker='o')
 
+# If you want to change the appearance of the line and the marker, you can use the fmt argument:
+plt.plot(xpoints, ypoints, 'o:r')
+
 plt.show()
