@@ -149,3 +149,29 @@
 
 # plt.show()
 
+
+# import matplotlib.pyplot as plt
+# import numpy as np
+
+# ypoints = np.array([3, 8, 1, 10])
+
+# #  we can also adjust the line size
+# plt.plot(ypoints, linewidth = '20.5')
+# plt.show()
+
+
+
+
+#  we ca also create multiple lines in a single graph or plot
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+y1 = np.array([3, 8, 1, 10])
+y2 = np.array([6, 2, 7, 11])
+
+plt.plot(y1)
+plt.plot(y2)
+
+plt.show()
+
