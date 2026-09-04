@@ -128,24 +128,24 @@
 
 
 
-import matplotlib.pyplot as plt
-import numpy as np
+# import matplotlib.pyplot as plt
+# import numpy as np
 
-ypoints = np.array([3, 8, 1, 10])
+# ypoints = np.array([3, 8, 1, 10])
 
-# ms = marker size
+# # ms = marker size
 
-plt.plot(ypoints, marker = 'o', ms = 20)
-
-
-#  for the marker color we can use mec = marker edge color
-
-plt.plot(ypoints, marker = 'o', ms = 20, mec = 'r')
+# plt.plot(ypoints, marker = 'o', ms = 20)
 
 
-# we can use marker face color  to set the color inside the edge of the markers
-plt.plot(ypoints, marker = 'o', ms = 20, mfc = 'r')
+# #  for the marker color we can use mec = marker edge color
+
+# plt.plot(ypoints, marker = 'o', ms = 20, mec = 'r')
 
 
-plt.show()
+# # we can use marker face color  to set the color inside the edge of the markers
+# plt.plot(ypoints, marker = 'o', ms = 20, mfc = 'r')
+
+
+# plt.show()
 
