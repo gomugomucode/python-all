@@ -78,11 +78,33 @@
 # plotting multiple points in a graph or plot
 
 
+# import matplotlib.pyplot as plt
+# import numpy as np
+
+# xpoints = np.array([1, 2, 6, 8])
+# ypoints = np.array([3, 8, 1, 10])
+
+# plt.plot(xpoints, ypoints)
+# plt.show()
+
+
+# import matplotlib.pyplot as plt 
+# import numpy as np  
+
+# ypoints = np.array([3, 8, 1, 10])  
+# plt.plot(ypoints, marker = 'o') 
+# plt.show()
+
+
 import matplotlib.pyplot as plt
 import numpy as np
 
-xpoints = np.array([1, 2, 6, 8])
 ypoints = np.array([3, 8, 1, 10])
 
-plt.plot(xpoints, ypoints)
+# The 'o:r' format string specifies that the points should be marked with circles ('o'), connected by a red line (':r').
+# here the 'o' is for the marker, ':' is for the line style (dashed), and 'r' is for the color red.
+
+# plt.plot(ypoints, 'o:r')
+
+plt.plot(ypoints, '*:r')
 plt.show()
