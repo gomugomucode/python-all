@@ -96,15 +96,56 @@
 # plt.show()
 
 
+
+
+# import matplotlib.pyplot as plt
+# import numpy as np
+
+# ypoints = np.array([3, 8, 1, 10])
+
+# # The 'o:r' format string specifies that the points should be marked with circles ('o'), connected by a red line (':r').
+# # here the 'o' is for the marker, ':' is for the line style (dashed), and 'r' is for the color red.
+
+# # plt.plot(ypoints, 'o:r')
+
+# plt.plot(ypoints, '*:r')
+# plt.show()
+
+
+
+# import matplotlib.pyplot as plt
+# import numpy as np
+
+# xarray = np.array([1, 2, 3, 4, 5])
+# yarray = np.array([2, 4, 6, 8, 10])
+
+# plt.plot(xarray, yarray, marker='o', linestyle='--', color='g', label='y = 2x')
+# plt.title('Line Plot Example')
+# plt.xlabel('X-axis')
+# plt.ylabel('Y-axis')
+# plt.legend()
+# plt.show()
+
+
+
 import matplotlib.pyplot as plt
 import numpy as np
 
 ypoints = np.array([3, 8, 1, 10])
 
-# The 'o:r' format string specifies that the points should be marked with circles ('o'), connected by a red line (':r').
-# here the 'o' is for the marker, ':' is for the line style (dashed), and 'r' is for the color red.
+# ms = marker size
 
-# plt.plot(ypoints, 'o:r')
+plt.plot(ypoints, marker = 'o', ms = 20)
 
-plt.plot(ypoints, '*:r')
+
+#  for the marker color we can use mec = marker edge color
+
+plt.plot(ypoints, marker = 'o', ms = 20, mec = 'r')
+
+
+# we can use marker face color  to set the color inside the edge of the markers
+plt.plot(ypoints, marker = 'o', ms = 20, mfc = 'r')
+
+
 plt.show()
+
