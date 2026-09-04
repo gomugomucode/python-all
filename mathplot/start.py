@@ -21,15 +21,51 @@ import numpy as np
 
 # plt.show()
 
-np.random.seed(19680801)  # seed the random number generator.
-data = {'a': np.arange(50),
-        'c': np.random.randint(0, 50, 50),
-        'd': np.random.randn(50)}
-data['b'] = data['a'] + 10 * np.random.randn(50)
-data['d'] = np.abs(data['d']) * 100
+# np.random.seed(19680801)  # seed the random number generator.
+# data = {'a': np.arange(50),
+#         'c': np.random.randint(0, 50, 50),
+#         'd': np.random.randn(50)}
+# data['b'] = data['a'] + 10 * np.random.randn(50)
+# data['d'] = np.abs(data['d']) * 100
 
-fig, ax = plt.subplots(figsize=(5, 2.7), layout='constrained')
-ax.scatter('a', 'b', c='c', s='d', data=data)
-ax.set_xlabel('entry a')
-ax.set_ylabel('entry b')
+# fig, ax = plt.subplots(figsize=(5, 2.7), layout='constrained')
+# ax.scatter('a', 'b', c='c', s='d', data=data)
+# ax.set_xlabel('entry a')
+# ax.set_ylabel('entry b')
+# plt.show()
+
+
+
+
+
+# matplotlib  pyplot
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# creating the numpy array containing the horizontal and verticla points
+
+xpoints = np.array([0, 6])
+ypoints = np.array([0, 250])
+
+# plotting the points using the plot()
+
+# plot function is used to draw the line between two points 
+
+# plt.plot(xpoints, ypoints)   
+
+# if u  want to draw the axis not the line in the graph or plot then pass 'o' in the plot function  
+
+# Draws only circles at (0, 0) and (6, 250) without a connecting line
+plt.plot(xpoints, ypoints, 'o')
+
+
+
+# if u Want both the line and the dots in the graph or plot then pass 'o' in the plot function  
+# You can combine a marker 'o' with a line '-' to get both:
+
+# Draws both the dots and the line connecting them
+# plt.plot(xpoints, ypoints, marker='o')
+
 plt.show()
