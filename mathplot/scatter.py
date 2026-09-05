@@ -113,18 +113,42 @@
 # plt.show() 
 
 
-#  combine the color, size, and alpha arguments to create a more advanced scatter plot:
+# #  combine the color, size, and alpha arguments to create a more advanced scatter plot:
+
+# import matplotlib.pyplot as plt
+# import numpy as np
+
+# x = np.random.randint(100, size=(100))
+# y = np.random.randint(100, size=(100))
+# colors = np.random.randint(100, size=(100))
+# sizes = 10 * np.random.randint(100, size=(100))
+
+# plt.scatter(x, y, c=colors, s=sizes, alpha=0.5, cmap='nipy_spectral')
+
+# plt.colorbar()
+
+# plt.show() 
+
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-x = np.random.randint(100, size=(100))
-y = np.random.randint(100, size=(100))
-colors = np.random.randint(100, size=(100))
-sizes = 10 * np.random.randint(100, size=(100))
+# Create a figure and add a 3D subplot
+fig = plt.figure()
+ax = fig.add_subplot(projection='3d')
 
-plt.scatter(x, y, c=colors, s=sizes, alpha=0.5, cmap='nipy_spectral')
+# Generate sample 3D data
+x = np.random.standard_normal(100)
+y = np.random.standard_normal(100)
+z = np.random.standard_normal(100)
 
-plt.colorbar()
+# Plot the points
+ax.scatter3D(x, y, z, c=z, cmap='viridis', s=40)
 
-plt.show() 
+# Add labels
+ax.set_xlabel('X Axis')
+ax.set_ylabel('Y Axis')
+ax.set_zlabel('Z Axis')
+ax.set_title('Simple 3D Scatter Plot')
+
+plt.show()
