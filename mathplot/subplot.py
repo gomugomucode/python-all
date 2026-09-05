@@ -5,6 +5,8 @@ import numpy as np
 x = np.array([0, 1, 2, 3])
 y = np.array([3, 8, 1, 10])
 
+
+# plt.subplot(rows, columns, position)
 plt.subplot(1, 2, 1)
 plt.plot(x,y)
 
