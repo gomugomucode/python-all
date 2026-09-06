@@ -32,3 +32,42 @@
 
 
 
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Apply default styling
+# sns.set_theme()
+
+# Your code snippet
+dots = sns.load_dataset("dots")
+
+
+# sns.relplot(
+#     data=dots, kind="line",
+#     x="time", y="firing_rate", col="align",
+#     hue="choice", size="coherence", style="choice",
+#     facet_kws=dict(sharex=False),
+# )
+
+
+sns.relplot(
+    data=dots, kind="line",
+    x="time", y="firing_rate",
+    hue="choice", size="coherence", style="choice",
+    facet_kws=dict(sharex=False),
+)
+
+
+sns.relplot(
+    data=dots, kind="line",
+    x="time", y="firing_rate",
+    hue="align", size="coherence", style="choice",
+    facet_kws=dict(sharex=False),
+)
+
+
+
+# Display the plot
+plt.show()
+
+# print(dots.head(20))
