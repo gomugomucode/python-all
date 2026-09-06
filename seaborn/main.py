@@ -15,8 +15,16 @@ import seaborn as sns
 
 tips = sns.load_dataset("tips")
 
-sns.relplot(data = tips, x = "total_bill", y = "tip")
+# sns.relplot(data = tips, x = "total_bill", y = "tip")
 
-# plt.show()
 
-print(tips)
+#  create  a scatter plot
+# sns.scatterplot(data = tips, x = "total_bill", y = "tip")
+
+
+#  create the histogram plot
+sns.histplot(data = tips, x = "total_bill", y = "tip")
+
+plt.show()
+
+# print(tips)
